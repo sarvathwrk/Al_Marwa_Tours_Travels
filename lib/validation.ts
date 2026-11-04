@@ -45,6 +45,7 @@ export const packageSchema = z.object({
   taglineEn: text(200),
   taglineTa: text(300),
   duration: text(40),
+  durationTa: text(60),
   priceInr,
   featuresEn: lines(10, 140),
   featuresTa: lines(10, 200),
@@ -165,6 +166,7 @@ export const gallerySchema = z.object({
 export const testimonialSchema = z.object({
   id: optionalId,
   name: required(80, 'the traveller’s name'),
+  nameTa: text(120),
   detailEn: text(100),
   detailTa: text(160),
   quoteEn: required(500, 'the review'),

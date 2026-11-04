@@ -9,10 +9,10 @@ export default function Gallery({ lang, items }: { lang: Locale; items: GalleryI
   if (items.length === 0) return null;
   return (
     <section id="gallery" className="px-3 pb-16 md:pb-24">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-7xl">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div className="max-w-2xl">
-            <h2 className="font-display text-4xl font-bold leading-tight text-haram md:text-5xl">{bi(lang, GALLERY.title)}</h2>
+            <h2 className="font-display section-title text-4xl font-bold leading-tight text-haram md:text-5xl">{bi(lang, GALLERY.title)}</h2>
             <p className="mt-4 text-lg text-muted">{bi(lang, GALLERY.intro)}</p>
           </div>
           <Link

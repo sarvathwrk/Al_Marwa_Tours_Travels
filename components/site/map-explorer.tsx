@@ -5,7 +5,7 @@ import type { Map as LeafletMap, Marker } from 'leaflet';
 import { createElement as lucideElement, Landmark as VLandmark, MapPin as VMapPin, Mosque as VMosque, Tent as VTent } from 'lucide';
 import { Landmark, MapPin, Mosque, Tent, type LucideIcon } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { MAP_UI } from '@/lib/content';
+import { MAP_UI, UI } from '@/lib/content';
 import { bi, type Locale } from '@/lib/i18n';
 import { ATTRIBUTION, TILES } from '@/lib/map';
 import { waLink } from '@/lib/images';
@@ -78,7 +78,7 @@ export default function MapExplorer({ whatsapp }: { whatsapp: string }) {
 
       const start = CITIES.makkah;
       const map = L.map(containerRef.current, { zoomControl: false }).setView(start.center, start.zoom);
-      L.control.zoom({ position: 'topright' }).addTo(map);
+      L.control.zoom({ position: 'topright', zoomInTitle: bi(lang, UI.zoomIn), zoomOutTitle: bi(lang, UI.zoomOut) }).addTo(map);
       L.tileLayer(TILES, { attribution: ATTRIBUTION, maxZoom: 19 }).addTo(map);
 
       for (const place of PLACES) {

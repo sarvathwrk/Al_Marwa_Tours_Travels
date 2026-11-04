@@ -39,7 +39,7 @@ export default function SiteHeader({ solid = false }: { solid?: boolean }) {
   return (
     <header className="fixed inset-x-0 top-0 z-40 px-3 pt-3">
       <div
-        className={`mx-auto max-w-6xl rounded-full border transition-colors duration-300 ${
+        className={`mx-auto max-w-[1600px] rounded-full border transition-colors duration-300 ${
           filled
             ? 'border-gold/30 bg-kiswa/92 shadow-lg shadow-black/25 backdrop-blur-md'
             : 'border-white/15 bg-kiswa/40 backdrop-blur-sm'
@@ -50,20 +50,20 @@ export default function SiteHeader({ solid = false }: { solid?: boolean }) {
             <span aria-hidden className="grid size-10 shrink-0 place-items-center rounded-full border border-gold/80 text-gold">
               <Star8 className="size-5" />
             </span>
-            <span className="hidden leading-tight min-[340px]:block">
+            <span className="hidden whitespace-nowrap leading-tight min-[340px]:block">
               <span className="block font-display text-base font-bold tracking-[0.12em] min-[380px]:text-lg min-[380px]:tracking-[0.18em]">AL MARWA</span>
-              <span className="block text-[10px] tracking-[0.22em] text-gold/90">{bi(lang, UI.brandSub)}</span>
+              <span className="tamil-untracked block text-[10px] tracking-[0.22em] text-gold/90">{bi(lang, UI.brandSub)}</span>
             </span>
           </Link>
 
-          <nav aria-label="Main" className={`hidden items-center gap-1 ${showNav}`}>
+          <nav aria-label={bi(lang, UI.mainNav)} className={`hidden items-center gap-1 ${showNav}`}>
             {NAV.map((item) => {
               const active = item.id === 'map' && onMap;
               return (
                 <Link
                   key={item.id}
                   href={hrefFor(item.href)}
-                  className={`rounded-full px-3.5 py-2 text-[15px] font-medium transition-colors hover:bg-white/10 hover:text-gold ${
+                  className={`whitespace-nowrap rounded-full px-3 py-2 text-[15px] font-medium transition-colors hover:bg-white/10 hover:text-gold xl:px-3.5 ${
                     active ? 'bg-white/10 text-gold' : 'text-white/85'
                   }`}
                 >
@@ -80,13 +80,13 @@ export default function SiteHeader({ solid = false }: { solid?: boolean }) {
               lang={other}
               onClick={remember}
               aria-label={bi(lang, UI.switchLabel)}
-              className="rounded-full border border-white/30 px-3 py-2 text-sm font-semibold text-white transition-colors hover:border-gold hover:text-gold min-[380px]:px-4"
+              className="whitespace-nowrap rounded-full border border-white/30 px-3 py-2 text-sm font-semibold text-white transition-colors hover:border-gold hover:text-gold min-[380px]:px-4"
             >
               {bi(lang, UI.switchTo)}
             </a>
             <Link
               href={hrefFor('#contact')}
-              className="hidden rounded-full bg-gold px-5 py-2 text-sm font-semibold text-kiswa transition-colors hover:bg-[#d9bd88] sm:inline-flex"
+              className="hidden whitespace-nowrap rounded-full bg-gold px-5 py-2 text-sm font-semibold text-kiswa transition-colors hover:bg-[#d9bd88] sm:inline-flex"
             >
               {bi(lang, UI.enquire)}
             </Link>
@@ -105,7 +105,7 @@ export default function SiteHeader({ solid = false }: { solid?: boolean }) {
       </div>
 
       {open && (
-        <nav id="mobile-nav" aria-label="Mobile" className={`mx-auto mt-2 max-w-6xl rounded-3xl border border-gold/25 bg-kiswa p-5 ${hideMenu}`}>
+        <nav id="mobile-nav" aria-label={bi(lang, UI.mobileNav)} className={`mx-auto mt-2 max-w-[1600px] rounded-3xl border border-gold/25 bg-kiswa p-5 ${hideMenu}`}>
           <ul className="flex flex-col">
             {NAV.map((item) => (
               <li key={item.id} className="border-b border-white/10 last:border-0">

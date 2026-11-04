@@ -7,7 +7,7 @@ export const NAV: { id: string; href: string; label: Bi }[] = [
   { id: 'home', href: '', label: { en: 'Home', ta: 'முகப்பு' } },
   { id: 'services', href: '#services', label: { en: 'Services', ta: 'சேவைகள்' } },
   { id: 'packages', href: '#packages', label: { en: 'Packages', ta: 'பேக்கேஜ்கள்' } },
-  { id: 'map', href: '/map', label: { en: 'Holy map', ta: 'புனித வரைபடம்' } },
+  { id: 'map', href: '/map', label: { en: 'Holy map', ta: 'வரைபடம்' } },
   { id: 'about', href: '#about', label: { en: 'About', ta: 'எங்களைப் பற்றி' } },
   { id: 'contact', href: '#contact', label: { en: 'Contact', ta: 'தொடர்பு' } },
 ];
@@ -236,6 +236,13 @@ export const OFFERS_UI = {
 };
 
 export const UI = {
+  mainNav: { en: 'Main', ta: 'முதன்மை மெனு' },
+  mobileNav: { en: 'Mobile', ta: 'மொபைல் மெனு' },
+  packageType: { en: 'Package type', ta: 'பேக்கேஜ் வகை' },
+  quoteLabel: { en: 'Qur’an verse', ta: 'திருக்குர்ஆன் வசனம்' },
+  zoomIn: { en: 'Zoom in', ta: 'பெரிதாக்கு' },
+  zoomOut: { en: 'Zoom out', ta: 'சிறிதாக்கு' },
+  company: { en: 'Al Marwa Tours & Travels', ta: 'அல் மர்வா டூர்ஸ் & டிராவல்ஸ்' },
   brandSub: { en: 'Tours & Travels', ta: 'டூர்ஸ் & டிராவல்ஸ்' },
   enquire: { en: 'Enquire now', ta: 'விசாரிக்க' },
   switchTo: { en: 'தமிழ்', ta: 'English' },

@@ -18,9 +18,9 @@ export default function Testimonials({ lang, items }: { lang: Locale; items: Tes
   if (items.length === 0) return null;
   return (
     <section aria-labelledby="reviews-title" className="px-3 pb-16 md:pb-24">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-7xl">
         <div className="max-w-2xl">
-          <h2 id="reviews-title" className="font-display text-4xl font-bold leading-tight text-haram md:text-5xl">
+          <h2 id="reviews-title" className="font-display section-title text-4xl font-bold leading-tight text-haram md:text-5xl">
             {bi(lang, TESTIMONIALS_UI.title)}
           </h2>
           <p className="mt-4 text-lg text-muted">{bi(lang, TESTIMONIALS_UI.intro)}</p>
@@ -32,7 +32,7 @@ export default function Testimonials({ lang, items }: { lang: Locale; items: Tes
                 <Stars value={t.rating} label={`${t.rating} ${bi(lang, TESTIMONIALS_UI.rating)}`} />
                 <blockquote className="mt-4 flex-1 text-[15px] leading-relaxed text-ink">{tr(lang, t.quoteEn, t.quoteTa)}</blockquote>
                 <figcaption className="mt-6 border-t border-line pt-4">
-                  <span className="block font-bold text-haram">{t.name}</span>
+                  <span className="block font-bold text-haram">{tr(lang, t.name, t.nameTa)}</span>
                   {(t.detailEn || t.detailTa) && <span className="text-sm text-muted">{tr(lang, t.detailEn, t.detailTa)}</span>}
                 </figcaption>
               </figure>

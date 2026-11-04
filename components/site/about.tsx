@@ -14,10 +14,10 @@ export default function About({ lang, stats }: { lang: Locale; stats: Stat[] }) 
 
   return (
     <section id="about" className="px-3 pb-16 md:pb-24">
-      <div className="mx-auto max-w-6xl rounded-[2rem] bg-sand p-6 md:p-12">
+      <div className="mx-auto max-w-7xl rounded-[2rem] bg-sand p-6 md:p-12">
         <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="flex flex-col">
-            <h2 className="font-display text-4xl font-bold leading-tight text-haram md:text-5xl">{bi(lang, ABOUT.title)}</h2>
+            <h2 className="font-display section-title text-4xl font-bold leading-tight text-haram md:text-5xl">{bi(lang, ABOUT.title)}</h2>
             <p className="mt-5 max-w-xl text-lg text-muted">{bi(lang, ABOUT.body)}</p>
 
             {stats.length > 0 ? (

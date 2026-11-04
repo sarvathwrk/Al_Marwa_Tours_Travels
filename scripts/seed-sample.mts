@@ -58,6 +58,7 @@ if (await isEmpty(schema.testimonials)) {
     {
       sort: 1,
       name: 'Salem family',
+      nameTa: 'சேலம் குடும்பம்',
       detailEn: 'Umrah traveller',
       detailTa: 'உம்ரா பயணி',
       quoteEn: 'The team explained every step in Tamil and answered all our questions before we confirmed.',
@@ -67,6 +68,7 @@ if (await isEmpty(schema.testimonials)) {
     {
       sort: 2,
       name: 'Coimbatore group',
+      nameTa: 'கோயம்புத்தூர் குழு',
       detailEn: 'Group Umrah',
       detailTa: 'குழு உம்ரா',
       quoteEn: 'Visa and flight coordination was clear, and we always knew what to do next.',
@@ -76,6 +78,7 @@ if (await isEmpty(schema.testimonials)) {
     {
       sort: 3,
       name: 'Chennai family',
+      nameTa: 'சென்னை குடும்பம்',
       detailEn: 'Family Umrah',
       detailTa: 'குடும்ப உம்ரா',
       quoteEn: 'Planning with family felt easy. We received clear details and honest answers.',

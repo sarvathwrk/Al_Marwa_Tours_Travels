@@ -1,5 +1,5 @@
 import type { PublicSettings } from '@/lib/data';
-import { CONTACT } from '@/lib/content';
+import { CONTACT, UI } from '@/lib/content';
 import { bi, tr, type Locale } from '@/lib/i18n';
 import { telLink, waLink } from '@/lib/images';
 import EnquiryForm from './enquiry-form';
@@ -38,9 +38,9 @@ export default function Contact({ lang, settings }: { lang: Locale; settings: Pu
 
   return (
     <section id="contact" className="px-3 py-16 md:py-24">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-7xl">
         <div className="grid items-end gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-          <h2 className="font-display text-4xl font-bold leading-tight text-haram md:text-5xl">{bi(lang, CONTACT.title)}</h2>
+          <h2 className="font-display section-title text-4xl font-bold leading-tight text-haram md:text-5xl">{bi(lang, CONTACT.title)}</h2>
           <p className="text-lg text-muted">{bi(lang, CONTACT.intro)}</p>
         </div>
 
@@ -51,7 +51,7 @@ export default function Contact({ lang, settings }: { lang: Locale; settings: Pu
             </a>
             <a href={waLink(settings.whatsapp)} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-9 items-center gap-1.5 hover:underline">
               <WhatsApp className="size-4 text-[#1fae62]" />
-              WhatsApp
+              {bi(lang, UI.whatsapp)}
             </a>
           </InfoCard>
           {settings.email && (
@@ -92,7 +92,7 @@ export default function Contact({ lang, settings }: { lang: Locale; settings: Pu
                     className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#1fae62] px-6 py-3 font-semibold text-white"
                   >
                     <WhatsApp className="size-5" />
-                    WhatsApp
+                    {bi(lang, UI.whatsapp)}
                   </a>
                 </div>
                 <div className="hizam" aria-hidden />

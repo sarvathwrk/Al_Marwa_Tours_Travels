@@ -36,6 +36,7 @@ if (n > 0) {
       sort: 2,
       featured: true,
       duration: '15 days',
+      durationTa: '15 நாட்கள்',
       nameEn: '15-Day Umrah Group',
       nameTa: '15 நாள் உம்ரா குழுப் பயணம்',
       taglineEn: 'A group travel option for pilgrims planning a focused Umrah journey.',

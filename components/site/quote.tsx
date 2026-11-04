@@ -1,9 +1,9 @@
-import { QUOTE } from '@/lib/content';
+import { QUOTE, UI } from '@/lib/content';
 import { bi, type Locale } from '@/lib/i18n';
 
 export default function Quote({ lang }: { lang: Locale }) {
   return (
-    <section aria-label="Quote">
+    <section aria-label={bi(lang, UI.quoteLabel)}>
       <div className="hizam" aria-hidden />
       <figure className="bg-haram px-5 py-20 text-center text-white">
         <blockquote className="mx-auto max-w-3xl font-display text-3xl leading-snug md:text-4xl">{bi(lang, QUOTE.text)}</blockquote>

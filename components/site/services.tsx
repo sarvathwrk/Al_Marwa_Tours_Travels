@@ -8,10 +8,10 @@ const ICONS = { crescent: MoonStar, cube: Box, plane: Plane, hotel: Hotel, compa
 export default function Services({ lang }: { lang: Locale }) {
   return (
     <section id="services" className="px-3 py-16 md:py-24">
-      <div className="mx-auto max-w-6xl rounded-[2rem] bg-sage p-6 md:p-12">
+      <div className="mx-auto max-w-7xl rounded-[2rem] bg-sage p-6 md:p-12">
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <div className="lg:sticky lg:top-28 lg:self-start">
-            <h2 className="font-display text-4xl font-bold leading-tight text-haram md:text-5xl">{bi(lang, SERVICES.title)}</h2>
+            <h2 className="font-display section-title text-4xl font-bold leading-tight text-haram md:text-5xl">{bi(lang, SERVICES.title)}</h2>
             <p className="mt-4 text-lg text-muted">{bi(lang, SERVICES.intro)}</p>
             <Link
               href={`/${lang}#contact`}

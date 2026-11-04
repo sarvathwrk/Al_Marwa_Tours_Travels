@@ -36,10 +36,13 @@ export function PackageForm({ pkg }: { pkg?: Pkg }) {
   return (
     <ActionForm action={savePackage} className="grid gap-5">
       {pkg && <Hidden name="id" value={pkg.id} />}
-      <div className="grid gap-4 sm:grid-cols-[1fr_1fr_110px]">
+      <div className="grid gap-4 sm:grid-cols-[1fr_110px]">
         <Select name="kind" label="Type" defaultValue={pkg?.kind ?? 'umrah'} options={KIND_OPTIONS} />
-        <Field name="duration" label="Duration" hint="Optional, e.g. 15 days" defaultValue={pkg?.duration} maxLength={40} />
         <Field name="sort" label="Order" hint="Lower shows first" type="number" inputMode="numeric" defaultValue={pkg?.sort ?? 0} />
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field name="duration" label="Duration (English)" hint="Optional, e.g. 15 days" defaultValue={pkg?.duration} maxLength={40} />
+        <Field name="durationTa" label="Duration (Tamil)" hint="Optional, e.g. 15 நாட்கள்" defaultValue={pkg?.durationTa} maxLength={60} />
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <Field name="nameEn" label="Name (English)" required maxLength={80} defaultValue={pkg?.nameEn} />
@@ -151,11 +154,14 @@ export function TestimonialForm({ review }: { review?: Testimonial }) {
     <ActionForm action={saveTestimonial} className="grid gap-5">
       {review && <Hidden name="id" value={review.id} />}
       <div className="grid gap-4 sm:grid-cols-[1fr_1fr_160px]">
-        <Field name="name" label="Traveller name" required maxLength={80} defaultValue={review?.name} />
+        <Field name="name" label="Traveller name (English)" required maxLength={80} defaultValue={review?.name} />
         <Field name="detailEn" label="Detail (English)" hint="e.g. Umrah 2025, Salem" maxLength={100} defaultValue={review?.detailEn} />
         <Select name="rating" label="Rating" defaultValue={String(review?.rating ?? 5)} options={RATING_OPTIONS} />
       </div>
-      <Field name="detailTa" label="Detail (Tamil)" maxLength={160} defaultValue={review?.detailTa} className="sm:max-w-md" />
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field name="nameTa" label="Traveller name (Tamil)" hint="Optional" maxLength={120} defaultValue={review?.nameTa} />
+        <Field name="detailTa" label="Detail (Tamil)" maxLength={160} defaultValue={review?.detailTa} />
+      </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <Area name="quoteEn" label="Review (English)" rows={4} defaultValue={review?.quoteEn} />
         <Area name="quoteTa" label="Review (Tamil)" rows={4} defaultValue={review?.quoteTa} />

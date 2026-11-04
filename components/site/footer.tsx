@@ -17,7 +17,7 @@ export default function Footer({ lang, settings }: { lang: Locale; settings: Pub
   return (
     <footer className="bg-kiswa text-white">
       <div className="hizam" aria-hidden />
-      <div className="mx-auto max-w-6xl px-5 pb-28 pt-16 sm:pb-8">
+      <div className="mx-auto max-w-7xl px-5 pb-28 pt-16 sm:pb-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_0.8fr_1fr_1.2fr]">
           <div>
             <Link href={`/${lang}`} className="flex items-center gap-3">
@@ -26,13 +26,13 @@ export default function Footer({ lang, settings }: { lang: Locale; settings: Pub
               </span>
               <span className="leading-tight">
                 <span className="block font-display text-xl font-bold tracking-[0.18em]">AL MARWA</span>
-                <span className="block text-[11px] tracking-[0.22em] text-gold/90">{bi(lang, UI.brandSub)}</span>
+                <span className="tamil-untracked block whitespace-nowrap text-[11px] tracking-[0.22em] text-gold/90">{bi(lang, UI.brandSub)}</span>
               </span>
             </Link>
             <p className="mt-5 max-w-xs text-[15px] text-white/65">{bi(lang, FOOTER.blurb)}</p>
             <ul className="mt-5 flex flex-wrap gap-3">
               <li>
-                <a href={waLink(settings.whatsapp)} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className={social}>
+                <a href={waLink(settings.whatsapp)} target="_blank" rel="noopener noreferrer" aria-label={bi(lang, UI.whatsapp)} className={social}>
                   <WhatsApp className="size-[18px]" />
                 </a>
               </li>
@@ -78,7 +78,7 @@ export default function Footer({ lang, settings }: { lang: Locale; settings: Pub
               <li>
                 <a href={waLink(settings.whatsapp)} target="_blank" rel="noopener noreferrer" className={link}>
                   <WhatsApp className="size-4 shrink-0 text-gold" />
-                  WhatsApp
+                  {bi(lang, UI.whatsapp)}
                 </a>
               </li>
               {settings.email && (
@@ -107,7 +107,7 @@ export default function Footer({ lang, settings }: { lang: Locale; settings: Pub
 
         <div className="mt-12 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-white/12 pt-5 text-xs text-white/50">
           <p>
-            © {new Date().getFullYear()} Al Marwa Tours &amp; Travels. {bi(lang, FOOTER.rights)}
+            © {new Date().getFullYear()} {bi(lang, UI.company)}. {bi(lang, FOOTER.rights)}
           </p>
           <p>{bi(lang, FOOTER.tagline)}</p>
           {/* Only entry point to the admin area. Deliberately small and absent from the main navigation. */}

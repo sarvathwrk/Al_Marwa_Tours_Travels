@@ -23,6 +23,7 @@ export const packages = pgTable(
     taglineEn: text('tagline_en').notNull().default(''),
     taglineTa: text('tagline_ta').notNull().default(''),
     duration: text('duration').notNull().default(''),
+    durationTa: text('duration_ta').notNull().default(''),
     /** Whole rupees (INR). NULL means "Enquire for price". */
     priceInr: integer('price_inr'),
     featuresEn: text('features_en').array().notNull().default(sql`'{}'::text[]`),
@@ -154,6 +155,7 @@ export const testimonials = pgTable(
   {
     id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
     name: text('name').notNull(),
+    nameTa: text('name_ta').notNull().default(''),
     detailEn: text('detail_en').notNull().default(''),
     detailTa: text('detail_ta').notNull().default(''),
     quoteEn: text('quote_en').notNull(),

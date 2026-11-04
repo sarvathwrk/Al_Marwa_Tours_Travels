@@ -96,15 +96,18 @@ body {
   }
 }
 
-:lang(ta) :is(h1, h2, h3) {
-  overflow-wrap: anywhere;
+/* Tamil glyphs are wider and taller than Latin, so section titles are sized down and only break a word as a last resort. */
+:lang(ta) .section-title {
+  font-size: clamp(1.65rem, 3vw, 2.6rem);
+  line-height: 1.32;
+  overflow-wrap: break-word;
 }
-
-@media (max-width: 480px) {
-  :lang(ta) h2 {
-    font-size: 1.65rem;
-    line-height: 1.35;
-  }
+:lang(ta) :is(h1, h2, h3) {
+  overflow-wrap: break-word;
+}
+/* Letter-spacing splits Tamil letter clusters apart, so never track Tamil text. */
+:lang(ta) .tamil-untracked {
+  letter-spacing: normal;
 }
 
 /* Larger map zoom buttons for thumbs */

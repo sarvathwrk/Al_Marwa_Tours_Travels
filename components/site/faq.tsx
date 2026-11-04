@@ -9,10 +9,10 @@ export default function FaqSection({ lang, items, whatsapp }: { lang: Locale; it
   if (items.length === 0) return null;
   return (
     <section id="faq" className="px-3 pb-16 md:pb-24">
-      <div className="mx-auto max-w-6xl rounded-[2rem] bg-mist p-6 md:p-12">
+      <div className="mx-auto max-w-7xl rounded-[2rem] bg-mist p-6 md:p-12">
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <h2 className="font-display text-4xl font-bold leading-tight text-haram md:text-5xl">{bi(lang, FAQ_UI.title)}</h2>
+            <h2 className="font-display section-title text-4xl font-bold leading-tight text-haram md:text-5xl">{bi(lang, FAQ_UI.title)}</h2>
             <p className="mt-4 text-lg text-muted">{bi(lang, FAQ_UI.intro)}</p>
             <a
               href={waLink(whatsapp)}

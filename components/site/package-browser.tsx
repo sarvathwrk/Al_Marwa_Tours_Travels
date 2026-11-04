@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import type { Pkg } from '@/db/schema';
-import { PACKAGES } from '@/lib/content';
+import { PACKAGES, UI } from '@/lib/content';
 import { formatInr, PACKAGE_KIND_LABEL, PACKAGE_KINDS, type PackageKind } from '@/lib/constants';
 import { bi, tr } from '@/lib/i18n';
 import { waLink } from '@/lib/images';
@@ -36,7 +36,7 @@ export default function PackageBrowser({ packages, whatsapp }: { packages: Pkg[]
   return (
     <>
       {kinds.length > 1 && (
-        <div role="tablist" aria-label="Package type" className="mt-10 flex flex-wrap gap-2">
+        <div role="tablist" aria-label={bi(lang, UI.packageType)} className="mt-10 flex flex-wrap gap-2">
           {(['all', ...kinds] as const).map((k) => {
             const selected = kind === k;
             return (
@@ -62,6 +62,7 @@ export default function PackageBrowser({ packages, whatsapp }: { packages: Pkg[]
       <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {visible.map((p) => {
           const name = tr(lang, p.nameEn, p.nameTa);
+          const duration = tr(lang, p.duration, p.durationTa);
           const features = lang === 'ta' && p.featuresTa.length ? p.featuresTa : p.featuresEn;
           const dark = p.featured;
           return (
@@ -75,12 +76,12 @@ export default function PackageBrowser({ packages, whatsapp }: { packages: Pkg[]
                 <span className={dark ? 'text-gold' : 'text-gold-deep'}>{bi(lang, PACKAGE_KIND_LABEL[p.kind])}</span>
                 {dark ? (
                   <span className="rounded-full bg-gold px-3 py-0.5 text-xs font-bold text-kiswa">{bi(lang, PACKAGES.popular)}</span>
-                ) : p.duration ? (
-                  <span className="text-muted">{p.duration}</span>
+                ) : duration ? (
+                  <span className="text-muted">{duration}</span>
                 ) : null}
               </div>
               <h3 className={`mt-3 font-display text-3xl font-bold leading-tight ${dark ? 'text-white' : 'text-haram'}`}>{name}</h3>
-              {dark && p.duration && <p className="mt-1 text-sm text-white/70">{p.duration}</p>}
+              {dark && duration && <p className="mt-1 text-sm text-white/70">{duration}</p>}
               {(p.taglineEn || p.taglineTa) && (
                 <p className={`mt-3 text-[15px] ${dark ? 'text-white/75' : 'text-muted'}`}>{tr(lang, p.taglineEn, p.taglineTa)}</p>
               )}

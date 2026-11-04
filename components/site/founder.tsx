@@ -14,7 +14,7 @@ export default function Founder({ lang, founder }: { lang: Locale; founder: Foun
 
   return (
     <section aria-labelledby="founder-title" className="px-3 pb-16 md:pb-24">
-      <div className={`mx-auto grid max-w-6xl items-center gap-10 ${founder.photoUrl ? 'lg:grid-cols-[0.8fr_1.2fr]' : ''}`}>
+      <div className={`mx-auto grid max-w-7xl items-center gap-10 ${founder.photoUrl ? 'lg:grid-cols-[0.8fr_1.2fr]' : ''}`}>
         {founder.photoUrl && (
           <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[2rem] bg-mist">
             <Image src={founder.photoUrl} alt={name} fill unoptimized sizes="(min-width: 1024px) 420px, 90vw" className="object-cover" />
@@ -27,7 +27,7 @@ export default function Founder({ lang, founder }: { lang: Locale; founder: Foun
               {role}
             </span>
           )}
-          <h2 id="founder-title" className="mt-4 font-display text-4xl font-bold leading-tight text-haram md:text-5xl">
+          <h2 id="founder-title" className="mt-4 font-display section-title text-4xl font-bold leading-tight text-haram md:text-5xl">
             <span className="sr-only">{bi(lang, FOUNDER_UI.title)}: </span>
             {name}
           </h2>
