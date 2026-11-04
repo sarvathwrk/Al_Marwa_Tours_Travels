@@ -10,6 +10,9 @@
   --color-ink: #16211d;
   --color-muted: #5d6a64;
   --color-line: #dfe5e1;
+  --color-sage: #e2ede7;
+  --color-sand: #f4ebd9;
+  --color-blush: #f7e8e1;
   --font-display: var(--font-amiri), var(--font-tamil), ui-serif, Georgia, serif;
   --font-sans: var(--font-hanken), var(--font-tamil), ui-sans-serif, system-ui, sans-serif;
 }

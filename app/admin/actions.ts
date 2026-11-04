@@ -1,35 +1,14 @@
 'use server';
 
 import { eq, sql } from 'drizzle-orm';
-import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { admins, offers, packages, siteSettings } from '@/db/schema';
+import { fail, guarded, idSchema, ok, publish } from '@/lib/admin-helpers';
 import { requireDb } from '@/lib/db';
 import { parseForm, type FormState } from '@/lib/form';
 import { hashPassword, verifyPassword } from '@/lib/password';
 import { createSession, destroySession, requireAdmin } from '@/lib/session';
 import { accountSchema, offerSchema, packageSchema, settingsSchema } from '@/lib/validation';
-import { z } from 'zod';
-
-const ok = (message: string): FormState => ({ status: 'success', message });
-const fail = (message: string): FormState => ({ status: 'error', message });
-
-/** Public pages are static; push admin edits to every locale. */
-function publish() {
-  revalidatePath('/[lang]', 'layout');
-}
-
-const idSchema = z.object({ id: z.coerce.number().int().positive() });
-
-/** Run a mutation, turning database failures into a friendly message instead of a crashed page. */
-async function guarded(work: () => Promise<FormState>): Promise<FormState> {
-  try {
-    return await work();
-  } catch (err) {
-    console.error('[admin] action failed:', err instanceof Error ? err.message : err);
-    return fail('Could not save. Check your connection and try again.');
-  }
-}
 
 // ---------- packages ----------
 

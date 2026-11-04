@@ -5,14 +5,10 @@ import type { Map as LeafletMap, Marker } from 'leaflet';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { MAP_UI } from '@/lib/content';
 import { bi, type Locale } from '@/lib/i18n';
+import { ATTRIBUTION, TILES } from '@/lib/map';
 import { waLink } from '@/lib/images';
 import { CATEGORIES, CITIES, PLACES, type CategoryId, type CityId, type Place } from '@/lib/places';
 import { useLang } from './lang';
-
-// Keyless OpenStreetMap tiles. Fine for a small site; for heavy traffic switch to a keyed provider
-// (MapTiler, Stadia, Mapbox) and set the URL + attribution here.
-const TILES = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
-const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
 const ESCAPES: Record<string, string> = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ESCAPES[c] ?? c);

@@ -1,6 +1,27 @@
 import 'server-only';
-import { asc, eq } from 'drizzle-orm';
-import { offers, packages, siteSettings, type Offer, type Pkg, type SiteSettings } from '@/db/schema';
+import { asc, desc, eq, count } from 'drizzle-orm';
+import {
+  enquiries,
+  faqs,
+  founder,
+  galleryItems,
+  offers,
+  packages,
+  siteSettings,
+  stats,
+  subscribers,
+  testimonials,
+  type Enquiry,
+  type Faq,
+  type Founder,
+  type GalleryItem,
+  type Offer,
+  type Pkg,
+  type SiteSettings,
+  type Stat,
+  type Subscriber,
+  type Testimonial,
+} from '@/db/schema';
 import { db, type Db } from './db';
 
 export type PublicSettings = Omit<SiteSettings, 'id' | 'updatedAt'>;
@@ -15,6 +36,8 @@ export const DEFAULT_SETTINGS: PublicSettings = {
   hoursTa: 'அலுவலக நேரத்திற்கு எங்களைத் தொடர்புகொள்ளவும்',
   instagram: '',
   facebook: '',
+  latitude: null,
+  longitude: null,
 };
 
 // The public site must never crash because the database is down or not migrated yet.
@@ -66,3 +89,56 @@ export function getSettings(): Promise<PublicSettings> {
     DEFAULT_SETTINGS,
   );
 }
+
+// ---------- generic helpers for "sorted list" tables ----------
+
+type Listing = { includeInactive?: boolean };
+
+export const getStats = (o: Listing = {}): Promise<Stat[]> =>
+  safe('getStats', (d) => d.select().from(stats).where(o.includeInactive ? undefined : eq(stats.active, true)).orderBy(asc(stats.sort), asc(stats.id)), []);
+
+export const getGallery = (o: Listing = {}): Promise<GalleryItem[]> =>
+  safe(
+    'getGallery',
+    (d) => d.select().from(galleryItems).where(o.includeInactive ? undefined : eq(galleryItems.active, true)).orderBy(asc(galleryItems.sort), asc(galleryItems.id)),
+    [],
+  );
+
+export const getTestimonials = (o: Listing = {}): Promise<Testimonial[]> =>
+  safe(
+    'getTestimonials',
+    (d) => d.select().from(testimonials).where(o.includeInactive ? undefined : eq(testimonials.active, true)).orderBy(asc(testimonials.sort), asc(testimonials.id)),
+    [],
+  );
+
+export const getFaqs = (o: Listing = {}): Promise<Faq[]> =>
+  safe('getFaqs', (d) => d.select().from(faqs).where(o.includeInactive ? undefined : eq(faqs.active, true)).orderBy(asc(faqs.sort), asc(faqs.id)), []);
+
+export const getFounder = (o: Listing = {}): Promise<Founder | null> =>
+  safe(
+    'getFounder',
+    async (d) => {
+      const [row] = await d.select().from(founder).where(eq(founder.id, 1)).limit(1);
+      if (!row) return null;
+      return o.includeInactive || row.active ? row : null;
+    },
+    null,
+  );
+
+// ---------- admin inbox ----------
+
+export const getEnquiries = (): Promise<Enquiry[]> =>
+  safe('getEnquiries', (d) => d.select().from(enquiries).orderBy(desc(enquiries.createdAt)).limit(300), []);
+
+export const getSubscribers = (): Promise<Subscriber[]> =>
+  safe('getSubscribers', (d) => d.select().from(subscribers).orderBy(desc(subscribers.createdAt)).limit(1000), []);
+
+export const countNewEnquiries = (): Promise<number> =>
+  safe(
+    'countNewEnquiries',
+    async (d) => {
+      const [row] = await d.select({ n: count() }).from(enquiries).where(eq(enquiries.status, 'new'));
+      return row?.n ?? 0;
+    },
+    0,
+  );

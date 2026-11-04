@@ -30,12 +30,22 @@ npm run db:generate         # writes a new SQL file in db/migrations
 npm run db:migrate          # applies it
 ```
 
-Tables: `packages` (INR prices as whole rupees, `NULL` = "Enquire for price"), `site_settings` (single row), `offers`, `admins`.
+Tables:
+- Content (admin-editable): `packages` (INR prices as whole rupees, `NULL` = "Enquire for price"), `offers`, `gallery_items`, `stats`, `testimonials`, `faqs`, `founder` (single row), `site_settings` (single row, includes office map pin).
+- Inbox (written by the public site): `enquiries` (contact form), `subscribers` (footer newsletter). Only a hash of the visitor's IP is kept, for rate limiting.
+- Auth: `admins`.
+
+Sections with no content (numbers, reviews, founder, gallery, FAQ) are hidden on the site until you add some.
 
 ## Admin
 
-Username and password are stored in the `admins` table (scrypt hash). Manage packages, the offers popup,
-contact details and your own login at `/admin`. Five wrong passwords lock that account for 15 minutes.
+Username and password are stored in the `admins` table (scrypt hash). At `/admin`:
+
+- **Inbox:** enquiries from the contact form (mark contacted / closed, delete) and newsletter subscribers.
+- **Website content:** packages, offers popup, gallery, numbers, reviews, FAQ, founder. Each has English and Tamil fields.
+- **Settings:** contact details (phone, WhatsApp, email, address, hours, socials, office map pin) and your login.
+
+Images in the gallery and founder section are https links; upload photos to an image host first and paste the link. Five wrong passwords lock that account for 15 minutes.
 Forgot the password: `npm run admin:create -- <username> <new-password>` resets it and signs out all sessions.
 
 ## i18n

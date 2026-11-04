@@ -99,7 +99,7 @@ export const ABOUT = {
     { en: 'Group & family enquiries', ta: 'குழு மற்றும் குடும்ப விசாரணைகள்' },
   ] satisfies Bi[],
   cta: { en: 'Speak with our team', ta: 'எங்கள் குழுவுடன் பேசுங்கள்' },
-  imageAlt: { en: 'Pilgrims at the Grand Mosque in Makkah', ta: 'மக்காவின் பெரிய பள்ளிவாசலில் ஹாஜிகள்' },
+  imageAlt: { en: 'Masjid an-Nabawi in Madinah', ta: 'மதீனாவின் மஸ்ஜிதுன் நபவி' },
 };
 
 export const PACKAGES = {
@@ -155,13 +155,6 @@ export const GALLERY = {
     en: 'Makkah, Madinah and the moments that make this journey unforgettable.',
     ta: 'மக்கா, மதீனா மற்றும் இந்தப் பயணத்தை மறக்க முடியாததாக மாற்றும் தருணங்கள்.',
   },
-  images: [
-    { id: 'photo-1564769625905-50e93615e769', w: 1000, alt: { en: 'Mosque architecture', ta: 'பள்ளிவாசல் கட்டிடக்கலை' } },
-    { id: 'photo-1591604129939-f1efa4d9f7fa', w: 800, alt: { en: 'Pilgrimage in Makkah', ta: 'மக்காவில் புனிதப் பயணம்' } },
-    { id: 'photo-1542810634-71277d95dcbb', w: 800, alt: { en: 'Islamic architecture', ta: 'இஸ்லாமிய கட்டிடக்கலை' } },
-    { id: 'photo-1519817650390-64a93db51149', w: 800, alt: { en: 'Mosque interior', ta: 'பள்ளிவாசலின் உட்புறம்' } },
-    { id: 'photo-1609599006353-e629aaabfeae', w: 800, alt: { en: 'Holy city details', ta: 'புனித நகர விவரங்கள்' } },
-  ],
 } as const;
 
 export const QUOTE = {
@@ -172,9 +165,16 @@ export const QUOTE = {
 export const CONTACT = {
   title: { en: 'Begin Your Journey With Al Marwa', ta: 'அல் மர்வாவுடன் உங்கள் பயணத்தைத் தொடங்குங்கள்' },
   intro: {
-    en: 'Send us your enquiry. Our team will connect with you on WhatsApp.',
-    ta: 'உங்கள் விசாரணையை அனுப்புங்கள். எங்கள் குழு வாட்ஸ்அப்பில் உங்களைத் தொடர்புகொள்ளும்.',
+    en: 'Send us your enquiry and our team will contact you, or message us directly on WhatsApp.',
+    ta: 'உங்கள் விசாரணையை அனுப்புங்கள்; எங்கள் குழு உங்களைத் தொடர்புகொள்ளும். அல்லது நேரடியாக வாட்ஸ்அப்பில் எழுதுங்கள்.',
   },
+  cards: {
+    phone: { en: 'Call or WhatsApp', ta: 'அழைக்க / வாட்ஸ்அப்' },
+    email: { en: 'Email', ta: 'மின்னஞ்சல்' },
+    visit: { en: 'Visit us', ta: 'எங்களைச் சந்திக்க' },
+  },
+  fallbackTitle: { en: 'Prefer to talk now?', ta: 'இப்போதே பேச விரும்புகிறீர்களா?' },
+  mapLabel: { en: 'Our office on the map', ta: 'வரைபடத்தில் எங்கள் அலுவலகம்' },
   boxTitle: { en: 'Let’s talk about your journey', ta: 'உங்கள் பயணம் குறித்து பேசுவோம்' },
   boxBody: {
     en: 'For package details, group bookings and travel enquiries, reach us directly.',
@@ -189,18 +189,16 @@ export const CONTACT = {
     travellersPh: { en: 'e.g. 4', ta: 'எ.கா. 4' },
     message: { en: 'Message', ta: 'செய்தி' },
     messagePh: { en: 'Preferred month, dates or questions…', ta: 'விருப்பமான மாதம், தேதிகள் அல்லது கேள்விகள்…' },
-    submit: { en: 'Send enquiry on WhatsApp', ta: 'வாட்ஸ்அப்பில் விசாரணையை அனுப்பவும்' },
+    submit: { en: 'Send enquiry', ta: 'விசாரணையை அனுப்பவும்' },
     note: {
-      en: 'This form opens WhatsApp with your enquiry details. It does not submit data to a server.',
-      ta: 'இந்தப் படிவம் உங்கள் விசாரணை விவரங்களுடன் வாட்ஸ்அப்பைத் திறக்கும். தகவல்கள் இணையச் சேவையகத்தில் சேமிக்கப்படாது.',
+      en: 'We save your details only so our team can reply to this enquiry. We do not share them.',
+      ta: 'இந்த விசாரணைக்குப் பதிலளிப்பதற்காக மட்டுமே உங்கள் விவரங்களைச் சேமிக்கிறோம். அவற்றை பகிர மாட்டோம்.',
     },
-    interests: [
-      { value: 'Umrah', label: { en: 'Umrah', ta: 'உம்ரா' } },
-      { value: 'Hajj', label: { en: 'Hajj', ta: 'ஹஜ்' } },
-      { value: 'Family / Private Umrah', label: { en: 'Family / Private Umrah', ta: 'குடும்ப / தனிப்பட்ட உம்ரா' } },
-      { value: 'Ziyarah', label: { en: 'Ziyarah', ta: 'ஜியாரத்' } },
-      { value: 'Other enquiry', label: { en: 'Other enquiry', ta: 'மற்ற விசாரணை' } },
-    ] satisfies { value: string; label: Bi }[],
+    email: { en: 'Email (optional)', ta: 'மின்னஞ்சல் (விருப்பம்)' },
+    sending: { en: 'Sending…', ta: 'அனுப்பப்படுகிறது…' },
+    successTitle: { en: 'Enquiry received', ta: 'விசாரணை பெறப்பட்டது' },
+    waContinue: { en: 'Continue on WhatsApp', ta: 'வாட்ஸ்அப்பில் தொடர' },
+    another: { en: 'Send another enquiry', ta: 'மற்றொரு விசாரணை அனுப்ப' },
     waIntro: {
       en: 'Assalamu Alaikum, I would like to enquire with Al Marwa Tours & Travels.',
       ta: 'அஸ்ஸலாமு அலைக்கும். அல் மர்வா டூர்ஸ் & டிராவல்ஸிடம் விசாரிக்க விரும்புகிறேன்.',
@@ -267,3 +265,43 @@ export const MAP_UI = {
     ta: `அஸ்ஸலாமு அலைக்கும். ${place} ஜியாரத் குறித்து அல் மர்வா டூர்ஸ் & டிராவல்ஸிடம் அறிய விரும்புகிறேன்.`,
   }),
 };
+
+export const GALLERY_UI = {
+  prev: { en: 'Previous', ta: 'முந்தையது' },
+  next: { en: 'Next', ta: 'அடுத்தது' },
+  mapCta: { en: 'Explore the holy map', ta: 'புனித வரைபடத்தைப் பாருங்கள்' },
+};
+
+export const ABOUT_UI = {
+  statsTitle: { en: 'Al Marwa in numbers', ta: 'எண்களில் அல் மர்வா' },
+};
+
+export const FOUNDER_UI = { title: { en: 'Meet our founder', ta: 'எங்கள் நிறுவனரை சந்தியுங்கள்' } };
+
+export const TESTIMONIALS_UI = {
+  title: { en: 'What our travellers say', ta: 'எங்கள் பயணிகள் கூறுவது' },
+  intro: { en: 'Words from pilgrims we have helped plan their journey.', ta: 'பயணத்தைத் திட்டமிட நாங்கள் உதவிய பயணிகளின் வார்த்தைகள்.' },
+  rating: { en: 'out of 5', ta: '5-க்கு' },
+};
+
+export const FAQ_UI = {
+  title: { en: 'Frequently asked questions', ta: 'அடிக்கடி கேட்கப்படும் கேள்விகள்' },
+  intro: { en: 'Quick answers before you message us.', ta: 'எங்களுக்கு எழுதும் முன் சில விரைவான பதில்கள்.' },
+  ask: { en: 'Still have a question? Ask on WhatsApp', ta: 'இன்னும் கேள்வி உள்ளதா? வாட்ஸ்அப்பில் கேளுங்கள்' },
+};
+
+export const NEWSLETTER_UI = {
+  title: { en: 'Join our newsletter', ta: 'எங்கள் செய்தி மடலில் இணையுங்கள்' },
+  body: { en: 'Be the first to hear about new packages and updates.', ta: 'புதிய பேக்கேஜ்கள் மற்றும் அறிவிப்புகளை முதலில் அறியுங்கள்.' },
+  placeholder: { en: 'Enter your email…', ta: 'உங்கள் மின்னஞ்சலை உள்ளிடவும்…' },
+  submit: { en: 'Subscribe', ta: 'சந்தா சேர' },
+  sending: { en: 'Subscribing…', ta: 'சேர்க்கப்படுகிறது…' },
+};
+
+export const SERVICES_UI = { cta: { en: 'Enquire now', ta: 'விசாரிக்க' } };
+
+export const HERO_PHOTOS = [
+  { id: 'photo-1591604129939-f1efa4d9f7fa', alt: { en: 'Masjid an-Nabawi in Madinah', ta: 'மதீனாவின் மஸ்ஜிதுன் நபவி' } },
+  { id: 'photo-1609599006353-e629aaabfeae', alt: { en: 'The Holy Qur’an', ta: 'திருக்குர்ஆன்' } },
+  { id: 'photo-1519817650390-64a93db51149', alt: { en: 'A mosque at golden hour', ta: 'பொன்னிற ஒளியில் ஒரு பள்ளிவாசல்' } },
+] satisfies { id: string; alt: { en: string; ta: string } }[];

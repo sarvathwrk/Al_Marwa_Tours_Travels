@@ -84,7 +84,7 @@ export function Field({
   required?: boolean;
   maxLength?: number;
   autoComplete?: string;
-  inputMode?: 'numeric' | 'tel' | 'text' | 'email' | 'url';
+  inputMode?: 'numeric' | 'decimal' | 'tel' | 'text' | 'email' | 'url';
 }) {
   const value = useValue(name, defaultValue);
   const invalid = !!useContext(FormCtx).errors?.[name];
@@ -164,14 +164,21 @@ export function SubmitButton({
   children,
   pendingLabel = 'Saving…',
   variant = 'primary',
+  size = 'md',
   confirm,
 }: {
   children: ReactNode;
   pendingLabel?: string;
-  variant?: 'primary' | 'danger';
+  variant?: 'primary' | 'danger' | 'ghost';
+  size?: 'md' | 'sm';
   confirm?: string;
 }) {
   const { pending } = useFormStatus();
+  const look = {
+    primary: 'bg-haram text-white hover:bg-haram-2',
+    danger: 'border border-red-300 text-red-700 hover:bg-red-50',
+    ghost: 'border border-line bg-white text-haram hover:border-haram',
+  }[variant];
   return (
     <button
       type="submit"
@@ -179,9 +186,7 @@ export function SubmitButton({
       onClick={(e) => {
         if (confirm && !window.confirm(confirm)) e.preventDefault();
       }}
-      className={`rounded-full px-6 py-2.5 text-sm font-semibold transition-colors disabled:opacity-60 ${
-        variant === 'danger' ? 'border border-red-300 text-red-700 hover:bg-red-50' : 'bg-haram text-white hover:bg-haram-2'
-      }`}
+      className={`rounded-full font-semibold transition-colors disabled:opacity-60 ${size === 'sm' ? 'px-4 py-1.5 text-xs' : 'px-6 py-2.5 text-sm'} ${look}`}
     >
       {pending ? pendingLabel : children}
     </button>

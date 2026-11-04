@@ -66,7 +66,7 @@ export default function PackageBrowser({ packages, whatsapp }: { packages: Pkg[]
           return (
             <article
               key={p.id}
-              className={`flex flex-col p-8 ${
+              className={`flex flex-col rounded-[1.75rem] p-8 ${
                 dark ? 'border border-gold bg-haram text-white shadow-[0_24px_60px_-24px_rgba(15,61,51,.6)]' : 'border border-line bg-white'
               }`}
             >
