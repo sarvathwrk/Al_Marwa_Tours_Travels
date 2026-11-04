@@ -3,7 +3,8 @@ import { CONTACT } from '@/lib/content';
 import { bi, tr, type Locale } from '@/lib/i18n';
 import { telLink, waLink } from '@/lib/images';
 import EnquiryForm from './enquiry-form';
-import { Chat, Clock, Mail, Phone, Pin } from './icons';
+import { Clock, Mail, MapPin, Phone, type LucideIcon } from 'lucide-react';
+import { WhatsApp } from './icons';
 import OfficeMap from './office-map';
 
 function InfoCard({
@@ -13,7 +14,7 @@ function InfoCard({
   children,
 }: {
   tint: string;
-  Icon: typeof Phone;
+  Icon: LucideIcon;
   title: string;
   children: React.ReactNode;
 }) {
@@ -45,10 +46,11 @@ export default function Contact({ lang, settings }: { lang: Locale; settings: Pu
 
         <div className="mt-10 grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(250px,1fr))]">
           <InfoCard tint="bg-sage" Icon={Phone} title={bi(lang, CONTACT.cards.phone)}>
-            <a href={telLink(settings.phoneDisplay)} className="font-semibold text-haram hover:underline">
+            <a href={telLink(settings.phoneDisplay)} className="inline-flex min-h-9 items-center font-semibold text-haram hover:underline">
               {settings.phoneDisplay}
             </a>
-            <a href={waLink(settings.whatsapp)} target="_blank" rel="noopener noreferrer" className="hover:underline">
+            <a href={waLink(settings.whatsapp)} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-9 items-center gap-1.5 hover:underline">
+              <WhatsApp className="size-4 text-[#1fae62]" />
               WhatsApp
             </a>
           </InfoCard>
@@ -60,7 +62,7 @@ export default function Contact({ lang, settings }: { lang: Locale; settings: Pu
             </InfoCard>
           )}
           {(address || hours) && (
-            <InfoCard tint="bg-sand" Icon={Pin} title={bi(lang, CONTACT.cards.visit)}>
+            <InfoCard tint="bg-sand" Icon={MapPin} title={bi(lang, CONTACT.cards.visit)}>
               {address && <span className="font-semibold text-haram">{address}</span>}
               {hours && (
                 <span className="flex items-start gap-2">
@@ -79,8 +81,8 @@ export default function Contact({ lang, settings }: { lang: Locale; settings: Pu
             {hasMap ? (
               <OfficeMap lat={settings.latitude as number} lng={settings.longitude as number} label={bi(lang, CONTACT.mapLabel)} />
             ) : (
-              <div className="flex flex-col justify-between overflow-hidden rounded-2xl bg-kiswa text-white">
-                <div className="p-8">
+              <div className="flex min-h-[260px] flex-col overflow-hidden rounded-2xl bg-kiswa text-white">
+                <div className="flex flex-1 flex-col items-start justify-center p-8">
                   <h3 className="font-display text-3xl font-bold">{bi(lang, CONTACT.fallbackTitle)}</h3>
                   <p className="mt-3 text-white/75">{bi(lang, CONTACT.boxBody)}</p>
                   <a
@@ -89,7 +91,7 @@ export default function Contact({ lang, settings }: { lang: Locale; settings: Pu
                     rel="noopener noreferrer"
                     className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#1fae62] px-6 py-3 font-semibold text-white"
                   >
-                    <Chat className="size-5" />
+                    <WhatsApp className="size-5" />
                     WhatsApp
                   </a>
                 </div>

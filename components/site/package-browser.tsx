@@ -6,7 +6,8 @@ import { PACKAGES } from '@/lib/content';
 import { formatInr, PACKAGE_KIND_LABEL, PACKAGE_KINDS, type PackageKind } from '@/lib/constants';
 import { bi, tr } from '@/lib/i18n';
 import { waLink } from '@/lib/images';
-import { Chat, Check } from './icons';
+import { Check } from 'lucide-react';
+import { WhatsApp } from './icons';
 import { useLang } from './lang';
 
 export default function PackageBrowser({ packages, whatsapp }: { packages: Pkg[]; whatsapp: string }) {
@@ -112,7 +113,7 @@ export default function PackageBrowser({ packages, whatsapp }: { packages: Pkg[]
                   dark ? 'bg-gold text-kiswa hover:bg-[#d9bd88]' : 'bg-haram text-white hover:bg-haram-2'
                 }`}
               >
-                <Chat className="size-5" />
+                <WhatsApp className="size-5" />
                 {bi(lang, PACKAGES.whatsapp)}
               </a>
             </article>

@@ -1,5 +1,6 @@
 'use client';
 
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useRef, type ReactNode } from 'react';
 import { GALLERY_UI } from '@/lib/content';
 import { bi } from '@/lib/i18n';
@@ -36,7 +37,7 @@ export default function Carousel({ children, label }: { children: ReactNode; lab
           aria-label={bi(lang, GALLERY_UI.prev)}
           className={`${round} border-haram text-haram hover:bg-haram hover:text-white`}
         >
-          <Arrow className="rotate-180" />
+          <ArrowLeft className="size-5" />
         </button>
         <button
           type="button"
@@ -44,17 +45,9 @@ export default function Carousel({ children, label }: { children: ReactNode; lab
           aria-label={bi(lang, GALLERY_UI.next)}
           className={`${round} border-haram bg-haram text-white hover:bg-haram-2`}
         >
-          <Arrow />
+          <ArrowRight className="size-5" />
         </button>
       </div>
     </div>
-  );
-}
-
-function Arrow({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden className={`size-5 ${className ?? ''}`}>
-      <path d="M5 12h14M13 6l6 6-6 6" />
-    </svg>
   );
 }

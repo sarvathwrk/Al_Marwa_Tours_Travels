@@ -5,7 +5,8 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { NAV, UI } from '@/lib/content';
 import { bi, LOCALE_COOKIE, otherLocale } from '@/lib/i18n';
-import { Close, Menu, Star8 } from './icons';
+import { Menu, X } from 'lucide-react';
+import { Star8 } from './icons';
 import { useLang } from './lang';
 
 /** Floating pill navigation. 12px gap + 60px bar = the 72px the map page reserves. */
@@ -26,6 +27,9 @@ export default function SiteHeader({ solid = false }: { solid?: boolean }) {
   const rest = pathname.replace(/^\/(en|ta)(?=\/|$)/, '');
   const onMap = rest.startsWith('/map');
   const filled = solid || scrolled || open;
+  // Tamil labels are wider, so the full nav needs more room before it replaces the menu button.
+  const showNav = lang === 'ta' ? 'xl:flex' : 'lg:flex';
+  const hideMenu = lang === 'ta' ? 'xl:hidden' : 'lg:hidden';
 
   const hrefFor = (href: string) => `/${lang}${href}`;
   const remember = () => {
@@ -41,18 +45,18 @@ export default function SiteHeader({ solid = false }: { solid?: boolean }) {
             : 'border-white/15 bg-kiswa/40 backdrop-blur-sm'
         }`}
       >
-        <div className="flex h-[60px] items-center justify-between gap-4 pl-3 pr-2.5">
-          <Link href={`/${lang}`} className="flex items-center gap-2.5 text-white" onClick={() => setOpen(false)}>
-            <span aria-hidden className="grid size-10 place-items-center rounded-full border border-gold/80 text-gold">
+        <div className="flex h-[60px] items-center justify-between gap-2 pl-3 pr-2.5 min-[380px]:gap-4">
+          <Link href={`/${lang}`} className="flex min-w-0 items-center gap-2.5 text-white" onClick={() => setOpen(false)}>
+            <span aria-hidden className="grid size-10 shrink-0 place-items-center rounded-full border border-gold/80 text-gold">
               <Star8 className="size-5" />
             </span>
-            <span className="leading-tight">
-              <span className="block font-display text-lg font-bold tracking-[0.18em]">AL MARWA</span>
+            <span className="hidden leading-tight min-[340px]:block">
+              <span className="block font-display text-base font-bold tracking-[0.12em] min-[380px]:text-lg min-[380px]:tracking-[0.18em]">AL MARWA</span>
               <span className="block text-[10px] tracking-[0.22em] text-gold/90">{bi(lang, UI.brandSub)}</span>
             </span>
           </Link>
 
-          <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
+          <nav aria-label="Main" className={`hidden items-center gap-1 ${showNav}`}>
             {NAV.map((item) => {
               const active = item.id === 'map' && onMap;
               return (
@@ -76,7 +80,7 @@ export default function SiteHeader({ solid = false }: { solid?: boolean }) {
               lang={other}
               onClick={remember}
               aria-label={bi(lang, UI.switchLabel)}
-              className="rounded-full border border-white/30 px-4 py-1.5 text-sm font-semibold text-white transition-colors hover:border-gold hover:text-gold"
+              className="rounded-full border border-white/30 px-3 py-2 text-sm font-semibold text-white transition-colors hover:border-gold hover:text-gold min-[380px]:px-4"
             >
               {bi(lang, UI.switchTo)}
             </a>
@@ -88,20 +92,20 @@ export default function SiteHeader({ solid = false }: { solid?: boolean }) {
             </Link>
             <button
               type="button"
-              className="grid size-10 place-items-center rounded-full text-white lg:hidden"
+              className={`grid size-10 place-items-center rounded-full text-white ${hideMenu}`}
               aria-expanded={open}
               aria-controls="mobile-nav"
               aria-label={bi(lang, UI.menu)}
               onClick={() => setOpen((v) => !v)}
             >
-              {open ? <Close className="size-6" /> : <Menu className="size-6" />}
+              {open ? <X className="size-6" /> : <Menu className="size-6" />}
             </button>
           </div>
         </div>
       </div>
 
       {open && (
-        <nav id="mobile-nav" aria-label="Mobile" className="mx-auto mt-2 max-w-6xl rounded-3xl border border-gold/25 bg-kiswa p-5 lg:hidden">
+        <nav id="mobile-nav" aria-label="Mobile" className={`mx-auto mt-2 max-w-6xl rounded-3xl border border-gold/25 bg-kiswa p-5 ${hideMenu}`}>
           <ul className="flex flex-col">
             {NAV.map((item) => (
               <li key={item.id} className="border-b border-white/10 last:border-0">

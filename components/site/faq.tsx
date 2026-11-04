@@ -1,7 +1,9 @@
+import { Plus } from 'lucide-react';
 import type { Faq } from '@/db/schema';
 import { FAQ_UI } from '@/lib/content';
 import { bi, tr, type Locale } from '@/lib/i18n';
 import { waLink } from '@/lib/images';
+import { WhatsApp } from './icons';
 
 export default function FaqSection({ lang, items, whatsapp }: { lang: Locale; items: Faq[]; whatsapp: string }) {
   if (items.length === 0) return null;
@@ -16,8 +18,9 @@ export default function FaqSection({ lang, items, whatsapp }: { lang: Locale; it
               href={waLink(whatsapp)}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 inline-flex rounded-full border border-haram px-6 py-3 text-sm font-semibold text-haram transition-colors hover:bg-haram hover:text-white"
+              className="mt-8 inline-flex items-center gap-2 rounded-full border border-haram px-6 py-3 text-sm font-semibold text-haram transition-colors hover:bg-haram hover:text-white"
             >
+              <WhatsApp className="size-4" />
               {bi(lang, FAQ_UI.ask)}
             </a>
           </div>
@@ -26,9 +29,9 @@ export default function FaqSection({ lang, items, whatsapp }: { lang: Locale; it
             {items.map((f) => (
               <details key={f.id} className="group rounded-2xl bg-white px-6 py-5 open:shadow-sm open:shadow-haram/10">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-haram [&::-webkit-details-marker]:hidden">
-                  {tr(lang, f.questionEn, f.questionTa)}
-                  <span aria-hidden className="grid size-8 shrink-0 place-items-center rounded-full bg-sage text-xl leading-none transition-transform group-open:rotate-45">
-                    +
+                  <span className="min-w-0 break-words">{tr(lang, f.questionEn, f.questionTa)}</span>
+                  <span aria-hidden className="grid size-8 shrink-0 place-items-center rounded-full bg-sage transition-transform group-open:rotate-45">
+                    <Plus className="size-4" />
                   </span>
                 </summary>
                 <p className="mt-3 text-[15px] leading-relaxed text-muted">{tr(lang, f.answerEn, f.answerTa)}</p>

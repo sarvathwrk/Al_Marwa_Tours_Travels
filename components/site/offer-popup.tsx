@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Offer } from '@/db/schema';
 import { OFFERS_UI } from '@/lib/content';
 import { bi, tr } from '@/lib/i18n';
-import { Close } from './icons';
+import { X } from 'lucide-react';
 import { useLang } from './lang';
 
 const SNOOZE_KEY = 'am_offers_snooze_until';
@@ -68,7 +68,7 @@ export default function OfferPopup({ offers }: { offers: Offer[] }) {
             aria-label={bi(lang, OFFERS_UI.close)}
             className="grid size-9 place-items-center rounded-full hover:bg-white/15"
           >
-            <Close className="size-5" />
+            <X className="size-5" />
           </button>
         </div>
         <div className="hizam" aria-hidden />

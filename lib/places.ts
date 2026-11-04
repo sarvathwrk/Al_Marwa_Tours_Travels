@@ -12,26 +12,28 @@ export const CITIES: Record<CityId, { name: Bi; center: [number, number]; zoom: 
   madinah: { name: { en: 'Madinah', ta: 'மதீனா' }, center: [24.4672, 39.6111], zoom: 12 },
 };
 
-export const CATEGORIES: Record<CategoryId, { name: Bi; color: string; icon: string }> = {
+export type CategoryIconKey = 'mosque' | 'tent' | 'landmark' | 'pin';
+
+export const CATEGORIES: Record<CategoryId, { name: Bi; color: string; icon: CategoryIconKey }> = {
   mosques: {
     name: { en: 'Holy mosques', ta: 'புனித மஸ்ஜிதுகள்' },
     color: '#0f3d33',
-    icon: '<path d="M4 20v-6a8 8 0 0 1 16 0v6M2 20h20M12 6V3M9.5 20v-3a2.5 2.5 0 0 1 5 0v3"/>',
+    icon: 'mosque',
   },
   hajj: {
     name: { en: 'Hajj sites', ta: 'ஹஜ் தலங்கள்' },
     color: '#9a783d',
-    icon: '<path d="M3 20 12 5l9 15zM12 5v15"/>',
+    icon: 'tent',
   },
   historic: {
     name: { en: 'Historic sites', ta: 'வரலாற்றுத் தலங்கள்' },
     color: '#7a2e3a',
-    icon: '<path d="M3 21h18M5 21V10M9 21V10M15 21V10M19 21V10M3 10l9-6 9 6z"/>',
+    icon: 'landmark',
   },
   miqat: {
     name: { en: 'Miqat', ta: 'மீகாத்' },
     color: '#1f4e79',
-    icon: '<path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+    icon: 'pin',
   },
 };
 

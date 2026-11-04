@@ -88,3 +88,31 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Grid children may shrink below their content, so long words (Tamil especially) wrap instead of widening the page. */
+@layer base {
+  .grid > * {
+    min-width: 0;
+  }
+}
+
+:lang(ta) :is(h1, h2, h3) {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 480px) {
+  :lang(ta) h2 {
+    font-size: 1.65rem;
+    line-height: 1.35;
+  }
+}
+
+/* Larger map zoom buttons for thumbs */
+@media (pointer: coarse) {
+  .leaflet-touch .leaflet-bar a {
+    width: 42px;
+    height: 42px;
+    line-height: 42px;
+    font-size: 20px;
+  }
+}

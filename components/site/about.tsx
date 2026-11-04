@@ -4,9 +4,9 @@ import type { Stat } from '@/db/schema';
 import { ABOUT, ABOUT_UI } from '@/lib/content';
 import { bi, tr, type Locale } from '@/lib/i18n';
 import { ABOUT_IMAGE, unsplash } from '@/lib/images';
-import { Check, Chat, Compass, Crescent, Star8 } from './icons';
+import { BadgeCheck, Check, Compass, MoonStar, Users } from 'lucide-react';
 
-const STAT_ICONS = [Star8, Compass, Crescent, Chat] as const;
+const STAT_ICONS = [BadgeCheck, Compass, Users, MoonStar] as const;
 
 /** Text and admin-managed numbers on the left, tall photo on the right. Falls back to the original highlights when no numbers exist. */
 export default function About({ lang, stats }: { lang: Locale; stats: Stat[] }) {
@@ -25,7 +25,7 @@ export default function About({ lang, stats }: { lang: Locale; stats: Stat[] }) 
                 <h3 className="sr-only">{bi(lang, ABOUT_UI.statsTitle)}</h3>
                 <div className="mt-8 grid gap-4 sm:grid-cols-2">
                   {stats.map((s, i) => {
-                    const Icon = STAT_ICONS[i % STAT_ICONS.length] ?? Star8;
+                    const Icon = STAT_ICONS[i % STAT_ICONS.length] ?? BadgeCheck;
                     return (
                       <div key={s.id} className={card}>
                         <span className="grid size-11 place-items-center rounded-full bg-sage text-haram">

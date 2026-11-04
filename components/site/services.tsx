@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { SERVICES, SERVICES_UI } from '@/lib/content';
 import { bi, type Locale } from '@/lib/i18n';
-import { Chat, Compass, Crescent, Cube, Hotel, Plane } from './icons';
+import { Box, Compass, Hotel, Languages, MoonStar, Plane } from 'lucide-react';
 
-const ICONS = { crescent: Crescent, cube: Cube, plane: Plane, hotel: Hotel, compass: Compass, chat: Chat } as const;
+const ICONS = { crescent: MoonStar, cube: Box, plane: Plane, hotel: Hotel, compass: Compass, chat: Languages } as const;
 
 export default function Services({ lang }: { lang: Locale }) {
   return (
@@ -27,7 +27,7 @@ export default function Services({ lang }: { lang: Locale }) {
               return (
                 <article key={item.title.en} className="rounded-3xl bg-white p-6 shadow-sm shadow-haram/5">
                   <span className="grid size-12 place-items-center rounded-full bg-sand text-gold-deep">
-                    <Icon className="size-6" />
+                    <Icon className="size-6" strokeWidth={1.75} />
                   </span>
                   <h3 className="mt-5 font-display text-2xl font-bold text-haram">{bi(lang, item.title)}</h3>
                   <p className="mt-2 text-[15px] text-muted">{bi(lang, item.body)}</p>

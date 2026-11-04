@@ -7,7 +7,8 @@ import { ENQUIRY_INTEREST_LABEL, ENQUIRY_INTERESTS } from '@/lib/constants';
 import { idleState, type FormState } from '@/lib/form';
 import { bi } from '@/lib/i18n';
 import { waLink } from '@/lib/images';
-import { Check, Chat } from './icons';
+import { Check } from 'lucide-react';
+import { WhatsApp } from './icons';
 import { useLang } from './lang';
 
 const input =
@@ -51,7 +52,7 @@ function EnquiryRound({ whatsapp, onAnother }: { whatsapp: string; onAnother: ()
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full bg-haram px-6 py-3 font-semibold text-white hover:bg-haram-2"
           >
-            <Chat className="size-5" />
+            <WhatsApp className="size-5" />
             {bi(lang, f.waContinue)}
           </a>
           <button type="button" onClick={onAnother} className="rounded-full border border-haram px-6 py-3 font-semibold text-haram hover:bg-mist">

@@ -43,7 +43,7 @@ function CrudList({ title, intro, rows, addLabel, addForm, emptyHint }: { title:
       {rows.length === 0 && emptyHint && <p className={`${panel} text-sm text-muted`}>{emptyHint}</p>}
       {rows.map((r) => (
         <details key={r.id} className={panel}>
-          <summary className="flex cursor-pointer list-none flex-wrap items-center gap-x-4 gap-y-2">{r.summary}</summary>
+          <summary className="flex min-h-11 cursor-pointer list-none flex-wrap items-center gap-x-4 gap-y-2">{r.summary}</summary>
           <div className="mt-6 border-t border-line pt-6">
             {r.form}
             {r.remove}
@@ -51,7 +51,7 @@ function CrudList({ title, intro, rows, addLabel, addForm, emptyHint }: { title:
         </details>
       ))}
       <details className={panel} open={rows.length === 0}>
-        <summary className="cursor-pointer font-display text-xl font-bold text-haram">+ {addLabel}</summary>
+        <summary className="flex min-h-11 cursor-pointer items-center font-display text-xl font-bold text-haram">+ {addLabel}</summary>
         <div className="mt-6 border-t border-line pt-6">{addForm}</div>
       </details>
     </>

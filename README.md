@@ -17,6 +17,7 @@ cp .env.example .env        # fill in POSTGRES_URL and AUTH_SECRET (openssl rand
 npm install
 npm run db:migrate          # create tables
 npm run db:seed             # contact details + 3 starter packages (prices blank)
+npm run db:seed:sample      # optional: placeholder numbers, reviews, founder, offers, map pin (edit in /admin)
 npm run admin:create -- <username> <password-min-10-chars>
 npm run dev                 # http://localhost:3009
 ```
@@ -36,6 +37,7 @@ Tables:
 - Auth: `admins`.
 
 Sections with no content (numbers, reviews, founder, gallery, FAQ) are hidden on the site until you add some.
+`db:seed:sample` fills them with placeholder content. It only fills empty tables and never overwrites admin edits. Replace it before launch: the example.com email, the Chennai map pin, the reviews, the founder name and the "500+" / "10+" numbers are all placeholders.
 
 ## Admin
 

@@ -1,3 +1,4 @@
+import { CircleHelp, ExternalLink, Hash, Images, Inbox, KeyRound, LogOut, Mail, Megaphone, Package, Phone, Star, User } from 'lucide-react';
 import Link from 'next/link';
 import {
   AccountTab,
@@ -20,27 +21,27 @@ const GROUPS = [
   {
     label: 'Inbox',
     tabs: [
-      { id: 'enquiries', label: 'Enquiries' },
-      { id: 'newsletter', label: 'Newsletter' },
+      { id: 'enquiries', label: 'Enquiries', icon: Inbox },
+      { id: 'newsletter', label: 'Newsletter', icon: Mail },
     ],
   },
   {
     label: 'Website content',
     tabs: [
-      { id: 'packages', label: 'Packages' },
-      { id: 'offers', label: 'Offers popup' },
-      { id: 'gallery', label: 'Gallery' },
-      { id: 'numbers', label: 'Numbers' },
-      { id: 'reviews', label: 'Reviews' },
-      { id: 'faq', label: 'FAQ' },
-      { id: 'founder', label: 'Founder' },
+      { id: 'packages', label: 'Packages', icon: Package },
+      { id: 'offers', label: 'Offers popup', icon: Megaphone },
+      { id: 'gallery', label: 'Gallery', icon: Images },
+      { id: 'numbers', label: 'Numbers', icon: Hash },
+      { id: 'reviews', label: 'Reviews', icon: Star },
+      { id: 'faq', label: 'FAQ', icon: CircleHelp },
+      { id: 'founder', label: 'Founder', icon: User },
     ],
   },
   {
     label: 'Settings',
     tabs: [
-      { id: 'contact', label: 'Contact details' },
-      { id: 'account', label: 'Account' },
+      { id: 'contact', label: 'Contact details', icon: Phone },
+      { id: 'account', label: 'Account', icon: KeyRound },
     ],
   },
 ] as const;
@@ -63,12 +64,14 @@ export default async function AdminPage({ searchParams }: PageProps<'/admin'>) {
             <p className="text-xs text-gold">Website admin</p>
           </div>
           <div className="flex items-center gap-4 text-sm">
-            <Link href="/" target="_blank" className="text-white/80 hover:text-gold">
-              View website ↗
+            <Link href="/" target="_blank" className="inline-flex items-center gap-1.5 py-2 text-white/80 hover:text-gold">
+              View website
+              <ExternalLink aria-hidden className="size-3.5" />
             </Link>
             <span className="hidden text-white/50 sm:inline">Signed in as {session.username}</span>
             <form action={logout}>
-              <button type="submit" className="rounded-full border border-white/30 px-4 py-1.5 font-semibold hover:border-gold hover:text-gold">
+              <button type="submit" className="inline-flex items-center gap-1.5 rounded-full border border-white/30 px-4 py-1.5 font-semibold hover:border-gold hover:text-gold">
+                <LogOut aria-hidden className="size-3.5" />
                 Log out
               </button>
             </form>
@@ -91,7 +94,10 @@ export default async function AdminPage({ searchParams }: PageProps<'/admin'>) {
                     tab === t.id ? 'bg-haram text-white' : 'bg-white text-haram hover:bg-white/70'
                   }`}
                 >
-                  {t.label}
+                  <span className="flex items-center gap-2.5">
+                    <t.icon aria-hidden className="size-4 shrink-0" />
+                    {t.label}
+                  </span>
                   {t.id === 'enquiries' && newCount > 0 && (
                     <span className="rounded-full bg-gold px-2 py-0.5 text-xs font-bold text-kiswa" aria-label={`${newCount} new`}>
                       {newCount}

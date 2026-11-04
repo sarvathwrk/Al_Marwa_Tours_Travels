@@ -2,32 +2,37 @@
 
 import 'leaflet/dist/leaflet.css';
 import type { Map as LeafletMap, Marker } from 'leaflet';
+import { createElement as lucideElement, Landmark as VLandmark, MapPin as VMapPin, Mosque as VMosque, Tent as VTent } from 'lucide';
+import { Landmark, MapPin, Mosque, Tent, type LucideIcon } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { MAP_UI } from '@/lib/content';
 import { bi, type Locale } from '@/lib/i18n';
 import { ATTRIBUTION, TILES } from '@/lib/map';
 import { waLink } from '@/lib/images';
-import { CATEGORIES, CITIES, PLACES, type CategoryId, type CityId, type Place } from '@/lib/places';
+import { CATEGORIES, CITIES, PLACES, type CategoryIconKey, type CategoryId, type CityId, type Place } from '@/lib/places';
 import { useLang } from './lang';
 
 const ESCAPES: Record<string, string> = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ESCAPES[c] ?? c);
 
+const ICON_COMPONENTS: Record<CategoryIconKey, LucideIcon> = { mosque: Mosque, tent: Tent, landmark: Landmark, pin: MapPin };
+const ICON_NODES = { mosque: VMosque, tent: VTent, landmark: VLandmark, pin: VMapPin } as const;
+
 function CategoryIcon({ id, className }: { id: CategoryId; className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-      className={className}
-      // Static, trusted constants from lib/places.ts.
-      dangerouslySetInnerHTML={{ __html: CATEGORIES[id].icon }}
-    />
-  );
+  const Icon = ICON_COMPONENTS[CATEGORIES[id].icon];
+  return <Icon aria-hidden className={className} strokeWidth={1.6} />;
+}
+
+/** Round coloured pin built as a DOM node (Leaflet accepts elements), using the same Lucide glyphs as the sidebar. */
+function pinElement(id: CategoryId): HTMLElement {
+  const { color, icon } = CATEGORIES[id];
+  const wrap = document.createElement('span');
+  wrap.style.background = color;
+  const svg = lucideElement(ICON_NODES[icon]);
+  svg.setAttribute('width', '20');
+  svg.setAttribute('height', '20');
+  wrap.appendChild(svg);
+  return wrap;
 }
 
 function popupHtml(place: Place, lang: Locale, whatsapp: string) {
@@ -77,10 +82,9 @@ export default function MapExplorer({ whatsapp }: { whatsapp: string }) {
       L.tileLayer(TILES, { attribution: ATTRIBUTION, maxZoom: 19 }).addTo(map);
 
       for (const place of PLACES) {
-        const cat = CATEGORIES[place.category];
         const icon = L.divIcon({
           className: 'am-pin',
-          html: `<span style="background:${cat.color}"><svg viewBox="0 0 24 24">${cat.icon}</svg></span>`,
+          html: pinElement(place.category),
           iconSize: [40, 40],
           iconAnchor: [20, 20],
           popupAnchor: [0, -22],

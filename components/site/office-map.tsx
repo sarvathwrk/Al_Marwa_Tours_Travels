@@ -2,10 +2,19 @@
 
 import 'leaflet/dist/leaflet.css';
 import type { Map as LeafletMap } from 'leaflet';
+import { createElement as lucideElement, MapPin } from 'lucide';
 import { useEffect, useRef } from 'react';
 import { ATTRIBUTION, TILES } from '@/lib/map';
 
-const PIN = '<span style="background:#0f3d33"><svg viewBox="0 0 24 24"><path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>';
+function pinElement(): HTMLElement {
+  const wrap = document.createElement('span');
+  wrap.style.background = '#0f3d33';
+  const svg = lucideElement(MapPin);
+  svg.setAttribute('width', '20');
+  svg.setAttribute('height', '20');
+  wrap.appendChild(svg);
+  return wrap;
+}
 
 /** Single-pin map for the contact section. Scroll-wheel zoom is off so it never traps page scrolling. */
 export default function OfficeMap({ lat, lng, label }: { lat: number; lng: number; label: string }) {
@@ -21,7 +30,7 @@ export default function OfficeMap({ lat, lng, label }: { lat: number; lng: numbe
       if (cancelled || !el.current) return;
       map = L.map(el.current, { scrollWheelZoom: false }).setView([lat, lng], 15);
       L.tileLayer(TILES, { attribution: ATTRIBUTION, maxZoom: 19 }).addTo(map);
-      const icon = L.divIcon({ className: 'am-pin', html: PIN, iconSize: [40, 40], iconAnchor: [20, 20] });
+      const icon = L.divIcon({ className: 'am-pin', html: pinElement(), iconSize: [40, 40], iconAnchor: [20, 20] });
       L.marker([lat, lng], { icon, title: label }).addTo(map);
     })();
 

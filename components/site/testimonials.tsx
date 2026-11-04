@@ -1,3 +1,4 @@
+import { Star } from 'lucide-react';
 import type { Testimonial } from '@/db/schema';
 import { TESTIMONIALS_UI } from '@/lib/content';
 import { bi, tr, type Locale } from '@/lib/i18n';
@@ -7,9 +8,7 @@ function Stars({ value, label }: { value: number; label: string }) {
   return (
     <p className="flex gap-0.5" role="img" aria-label={label}>
       {[1, 2, 3, 4, 5].map((n) => (
-        <svg key={n} viewBox="0 0 24 24" aria-hidden className={`size-5 ${n <= value ? 'fill-gold text-gold' : 'fill-line text-line'}`}>
-          <path d="m12 2.5 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z" />
-        </svg>
+        <Star key={n} aria-hidden className={`size-5 ${n <= value ? 'fill-gold text-gold' : 'fill-line text-line'}`} strokeWidth={1.5} />
       ))}
     </p>
   );

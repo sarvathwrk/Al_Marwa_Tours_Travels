@@ -10,16 +10,20 @@
     "admin:create": "tsx --env-file=.env scripts/create-admin.mts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx --env-file=.env scripts/migrate.mts",
-    "db:seed": "tsx --env-file=.env scripts/seed.mts"
+    "db:seed": "tsx --env-file=.env scripts/seed.mts",
+    "db:seed:sample": "tsx --env-file=.env scripts/seed-sample.mts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.2.0",
     "drizzle-orm": "^0.45.4",
     "jose": "^6.2.15",
     "leaflet": "^1.9.4",
+    "lucide": "^1.68.0",
+    "lucide-react": "^1.68.0",
     "next": "16.4.5",
     "react": "19.3.1",
     "react-dom": "19.3.1",
+    "react-icons": "^5.7.0",
     "server-only": "^0.0.1",
     "zod": "^4.6.7"
   },

@@ -16,11 +16,11 @@ export default function Hero({ lang }: { lang: Locale }) {
       <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-kiswa to-transparent" />
 
       <div className="mx-auto grid w-full max-w-6xl flex-1 items-center gap-12 px-5 pb-32 pt-32 sm:pb-20 lg:grid-cols-[1.15fr_0.85fr]">
-        <div className="max-w-2xl">
+        <div className="min-w-0 max-w-2xl">
           <h1
-            className={`font-display font-bold text-balance ${
+            className={`font-display font-bold text-balance break-words ${
               tamil
-                ? 'text-[clamp(2.1rem,5vw,3.8rem)] leading-[1.3]'
+                ? 'text-[clamp(1.7rem,5vw,3.8rem)] leading-[1.3]'
                 : 'text-[clamp(2.75rem,6.4vw,5.2rem)] leading-[1.02] tracking-tight'
             }`}
           >
