@@ -1,6 +1,6 @@
 import { sql } from 'drizzle-orm';
-import { boolean, check, doublePrecision, index, integer, pgEnum, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
-import { ENQUIRY_INTERESTS, ENQUIRY_STATUSES, PACKAGE_KINDS } from '../lib/constants';
+import { boolean, check, date, doublePrecision, index, integer, pgEnum, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
+import { CUSTOMER_STATUSES, ENQUIRY_INTERESTS, ENQUIRY_STATUSES, PACKAGE_KINDS, VISA_STATUSES } from '../lib/constants';
 
 const timestamps = {
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
@@ -233,6 +233,88 @@ export const enquiries = pgTable(
   ],
 );
 
+/**
+ * A travel group / batch (e.g. "Umrah Ramadan 2027"): customers travelling together share its type and dates.
+ * Every customer belongs to exactly one group.
+ */
+export const travelGroups = pgTable(
+  'travel_groups',
+  {
+    id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+    name: text('name').notNull().unique(),
+    kind: packageKind('kind').notNull().default('umrah'),
+    departureDate: date('departure_date', { mode: 'string' }),
+    returnDate: date('return_date', { mode: 'string' }),
+    departureCity: text('departure_city').notNull().default(''),
+    /** Seats available in the group. Blank = not limited. */
+    capacity: integer('capacity'),
+    notes: text('notes').notNull().default(''),
+    ...timestamps,
+  },
+  (t) => [
+    check('travel_groups_name_not_blank', sql`length(btrim(${t.name})) > 0`),
+    check('travel_groups_capacity_positive', sql`${t.capacity} is null or ${t.capacity} between 1 and 5000`),
+    check('travel_groups_dates_order', sql`${t.departureDate} is null or ${t.returnDate} is null or ${t.returnDate} >= ${t.departureDate}`),
+    index('travel_groups_departure_idx').on(t.departureDate),
+  ],
+);
+
+export const customerStatus = pgEnum('customer_status', CUSTOMER_STATUSES);
+export const visaStatus = pgEnum('visa_status', VISA_STATUSES);
+
+/**
+ * People who applied for Hajj / Umrah / Ziyarah: personal details, travel details and payments.
+ * No files are stored; `documentsUrl` is only a link (e.g. a shared folder).
+ */
+export const customers = pgTable(
+  'customers',
+  {
+    id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+    // personal
+    name: text('name').notNull(),
+    gender: text('gender').notNull().default(''),
+    dateOfBirth: date('date_of_birth', { mode: 'string' }),
+    phone: text('phone').notNull(),
+    whatsapp: text('whatsapp').notNull().default(''),
+    email: text('email').notNull().default(''),
+    address: text('address').notNull().default(''),
+    emergencyContact: text('emergency_contact').notNull().default(''),
+    passportNumber: text('passport_number').notNull().default(''),
+    passportExpiry: date('passport_expiry', { mode: 'string' }),
+    // travel
+    /** Required. A group cannot be deleted while customers belong to it. */
+    groupId: integer('group_id')
+      .notNull()
+      .references(() => travelGroups.id, { onDelete: 'restrict' }),
+    packageId: integer('package_id').references(() => packages.id, { onDelete: 'set null' }),
+    /** Name of the package when it was chosen, so the record survives the package being deleted. */
+    packageName: text('package_name').notNull().default(''),
+    travellers: integer('travellers').notNull().default(1),
+    visaStatus: visaStatus('visa_status').notNull().default('not_started'),
+    documentsUrl: text('documents_url').notNull().default(''),
+    // payments, whole rupees
+    totalAmount: integer('total_amount'),
+    paidAmount: integer('paid_amount').notNull().default(0),
+    // pipeline
+    status: customerStatus('status').notNull().default('applied'),
+    notes: text('notes').notNull().default(''),
+    /** Set when the customer was created from a website enquiry (one customer per enquiry). */
+    enquiryId: integer('enquiry_id')
+      .unique()
+      .references(() => enquiries.id, { onDelete: 'set null' }),
+    ...timestamps,
+  },
+  (t) => [
+    check('customers_name_not_blank', sql`length(btrim(${t.name})) > 0`),
+    check('customers_gender', sql`${t.gender} in ('', 'male', 'female')`),
+    check('customers_travellers_range', sql`${t.travellers} between 1 and 500`),
+    check('customers_amounts_non_negative', sql`${t.paidAmount} >= 0 and (${t.totalAmount} is null or ${t.totalAmount} >= 0)`),
+    check('customers_documents_https', sql`${t.documentsUrl} = '' or ${t.documentsUrl} ~ '^https://'`),
+    index('customers_status_idx').on(t.status),
+    index('customers_group_idx').on(t.groupId),
+  ],
+);
+
 /** Newsletter signups from the footer. */
 export const subscribers = pgTable(
   'subscribers',
@@ -250,6 +332,10 @@ export const subscribers = pgTable(
   ],
 );
 
+export type TravelGroup = typeof travelGroups.$inferSelect;
+export type NewTravelGroup = typeof travelGroups.$inferInsert;
+export type Customer = typeof customers.$inferSelect;
+export type NewCustomer = typeof customers.$inferInsert;
 export type Pkg = typeof packages.$inferSelect;
 export type NewPkg = typeof packages.$inferInsert;
 export type SiteSettings = typeof siteSettings.$inferSelect;

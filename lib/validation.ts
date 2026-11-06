@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ENQUIRY_INTERESTS, ENQUIRY_STATUSES, PACKAGE_KINDS } from './constants';
+import { CUSTOMER_STATUSES, ENQUIRY_INTERESTS, ENQUIRY_STATUSES, GENDERS, PACKAGE_KINDS, VISA_STATUSES } from './constants';
 import { isLocale, tr, type Locale } from './i18n';
 
 const text = (max: number) => z.string().trim().max(max, `Keep this under ${max} characters`).default('');
@@ -201,6 +201,83 @@ export const enquiryStatusSchema = z.object({
   id: z.coerce.number().int().positive(),
   status: z.enum(ENQUIRY_STATUSES),
 });
+
+// ---------- customers ----------
+
+const PHONE = /^\+?[0-9][0-9 ()-]{6,19}$/;
+const phoneMsg = 'Enter a valid mobile number, e.g. +91 99435 15474';
+
+/** "2027-03-15" from <input type="date">; blank = not set (null). */
+const optionalDate = z
+  .string()
+  .trim()
+  .default('')
+  .refine((v) => v === '' || (/^\d{4}-\d{2}-\d{2}$/.test(v) && !Number.isNaN(Date.parse(v))), 'Enter a valid date')
+  .transform((v) => (v === '' ? null : v));
+
+export const customerSchema = z
+  .object({
+    id: optionalId,
+    // personal
+    name: z.string().trim().min(2, 'Enter the full name').max(80, 'Keep this under 80 characters'),
+    gender: z.enum(GENDERS, 'Choose male, female or leave blank').default(''),
+    dateOfBirth: optionalDate,
+    phone: z.string().trim().regex(PHONE, phoneMsg),
+    whatsapp: z.string().trim().max(20).default('').refine((v) => v === '' || PHONE.test(v), phoneMsg),
+    email: z
+      .string()
+      .trim()
+      .max(120)
+      .default('')
+      .refine((v) => v === '' || z.email().safeParse(v).success, 'Enter a valid email address, or leave blank'),
+    address: text(200),
+    emergencyContact: text(120),
+    passportNumber: z
+      .string()
+      .trim()
+      .toUpperCase()
+      .max(20)
+      .default('')
+      .refine((v) => v === '' || /^[A-Z0-9]{5,20}$/.test(v), 'Use 5–20 letters and digits only'),
+    passportExpiry: optionalDate,
+    // travel: the group supplies the type (Hajj / Umrah / Ziyarah) and the dates
+    groupId: z.coerce.number('Choose a group').int().positive('Choose a group'),
+    packageId: optionalId,
+    travellers: z.coerce.number('Enter a number').int('Enter a whole number').min(1, 'At least 1 traveller').max(500, 'At most 500').default(1),
+    visaStatus: z.enum(VISA_STATUSES).default('not_started'),
+    documentsUrl: optionalHttpsLink,
+    // payments
+    totalAmount: priceInr,
+    paidAmount: priceInr.transform((v) => v ?? 0),
+    // pipeline
+    status: z.enum(CUSTOMER_STATUSES).default('applied'),
+    notes: text(2000),
+    /** Set when the customer is created from a website enquiry. */
+    enquiryId: optionalId,
+  });
+export type CustomerInput = z.infer<typeof customerSchema>;
+
+export const groupSchema = z
+  .object({
+    id: optionalId,
+    name: z.string().trim().min(2, 'Enter a group name, e.g. Umrah Ramadan 2027').max(80, 'Keep this under 80 characters'),
+    kind: z.enum(PACKAGE_KINDS, 'Choose Hajj, Umrah or Ziyarah'),
+    departureDate: optionalDate,
+    returnDate: optionalDate,
+    departureCity: text(60),
+    capacity: z
+      .string()
+      .trim()
+      .default('')
+      .refine((v) => v === '' || (/^\d{1,4}$/.test(v) && Number(v) >= 1 && Number(v) <= 5000), 'Enter 1 to 5000, or leave blank')
+      .transform((v) => (v === '' ? null : Number(v))),
+    notes: text(1000),
+  })
+  .refine((v) => !v.departureDate || !v.returnDate || v.returnDate >= v.departureDate, {
+    path: ['returnDate'],
+    message: 'Return date must be on or after the departure date',
+  });
+export type GroupInput = z.infer<typeof groupSchema>;
 
 // ---------- public forms (messages follow the visitor's language) ----------
 

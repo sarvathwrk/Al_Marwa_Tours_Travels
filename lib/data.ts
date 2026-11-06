@@ -1,6 +1,7 @@
 import 'server-only';
-import { asc, desc, eq, count } from 'drizzle-orm';
+import { asc, count, desc, eq, isNotNull, sql } from 'drizzle-orm';
 import {
+  customers,
   enquiries,
   faqs,
   founder,
@@ -11,6 +12,8 @@ import {
   stats,
   subscribers,
   testimonials,
+  travelGroups,
+  type Customer,
   type Enquiry,
   type Faq,
   type Founder,
@@ -21,6 +24,7 @@ import {
   type Stat,
   type Subscriber,
   type Testimonial,
+  type TravelGroup,
 } from '@/db/schema';
 import { db, type Db } from './db';
 
@@ -141,4 +145,43 @@ export const countNewEnquiries = (): Promise<number> =>
       return row?.n ?? 0;
     },
     0,
+  );
+
+// ---------- customers (admin only) ----------
+
+export type CustomerWithGroup = Customer & { group: TravelGroup };
+
+/** Groups with the earliest departure first; groups without a date come last. */
+export const getGroups = (): Promise<TravelGroup[]> =>
+  safe('getGroups', (d) => d.select().from(travelGroups).orderBy(sql`${travelGroups.departureDate} asc nulls last`, asc(travelGroups.name)), []);
+
+export const getCustomers = (): Promise<CustomerWithGroup[]> =>
+  safe(
+    'getCustomers',
+    async (d) => {
+      const rows = await d.select().from(customers).innerJoin(travelGroups, eq(customers.groupId, travelGroups.id)).orderBy(desc(customers.createdAt)).limit(2000);
+      return rows.map((r) => ({ ...r.customers, group: r.travel_groups }));
+    },
+    [],
+  );
+
+export const getEnquiry = (id: number): Promise<Enquiry | null> =>
+  safe(
+    'getEnquiry',
+    async (d) => {
+      const [row] = await d.select().from(enquiries).where(eq(enquiries.id, id)).limit(1);
+      return row ?? null;
+    },
+    null,
+  );
+
+/** Enquiries that already became a customer (so the inbox can show "In customers"). */
+export const getLinkedEnquiryIds = (): Promise<Set<number>> =>
+  safe(
+    'getLinkedEnquiryIds',
+    async (d) => {
+      const rows = await d.select({ id: customers.enquiryId }).from(customers).where(isNotNull(customers.enquiryId));
+      return new Set(rows.map((r) => r.id as number));
+    },
+    new Set<number>(),
   );

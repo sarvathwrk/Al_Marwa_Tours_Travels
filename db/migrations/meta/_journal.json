@@ -22,6 +22,27 @@
       "when": 1793799410531,
       "tag": "0002_tamil_duration_and_reviewer_name",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1793972732651,
+      "tag": "0003_customers",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1793973363839,
+      "tag": "0004_travel_groups",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1793973373237,
+      "tag": "0005_customers_group_required",
+      "breakpoints": true
     }
   ]
 }

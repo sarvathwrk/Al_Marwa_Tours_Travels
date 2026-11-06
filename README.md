@@ -18,6 +18,8 @@ npm install
 npm run db:migrate          # create tables
 npm run db:seed             # contact details + 3 starter packages (prices blank)
 npm run db:seed:sample      # optional: placeholder numbers, reviews, founder, offers, map pin (edit in /admin)
+npm run db:seed:demo        # optional, development only: demo groups, customers, enquiries, newsletter signups
+npm run db:clear:demo       # removes exactly that demo data (rows with an @sample.invalid email, groups starting "DEMO:")
 npm run admin:create -- <username> <password-min-10-chars>
 npm run dev                 # http://localhost:3009
 ```
@@ -34,6 +36,7 @@ npm run db:migrate          # applies it
 Tables:
 - Content (admin-editable): `packages` (INR prices as whole rupees, `NULL` = "Enquire for price"), `offers`, `gallery_items`, `stats`, `testimonials`, `faqs`, `founder` (single row), `site_settings` (single row, includes office map pin).
 - Inbox (written by the public site): `enquiries` (contact form), `subscribers` (footer newsletter). Only a hash of the visitor's IP is kept, for rate limiting.
+- CRM (admin only): `travel_groups` (a batch such as "Umrah Ramadan 2027": type, dates, seats) and `customers` (personal details, package, payments, status). Every customer belongs to exactly one group; a group with customers cannot be deleted. No files are stored: `documents_url` is only a link.
 - Auth: `admins`.
 
 Sections with no content (numbers, reviews, founder, gallery, FAQ) are hidden on the site until you add some.
@@ -43,6 +46,9 @@ Sections with no content (numbers, reviews, founder, gallery, FAQ) are hidden on
 
 Username and password are stored in the `admins` table (scrypt hash). At `/admin`:
 
+- **Dashboard:** key numbers, charts (new customers, travellers by departure month, pipeline, payments by group) and upcoming departures.
+- **Customers:** who applied for Hajj / Umrah / Ziyarah, with personal and travel details, the package and group they chose, and payments. Search and filter by type, group and status. "Add as customer" on an enquiry fills the form from it.
+- **Groups:** create the batches customers travel in (required when adding a customer).
 - **Inbox:** enquiries from the contact form (mark contacted / closed, delete) and newsletter subscribers.
 - **Website content:** packages, offers popup, gallery, numbers, reviews, FAQ, founder. Each has English and Tamil fields.
 - **Settings:** contact details (phone, WhatsApp, email, address, hours, socials, office map pin) and your login.

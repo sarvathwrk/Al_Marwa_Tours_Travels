@@ -11,7 +11,9 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx --env-file=.env scripts/migrate.mts",
     "db:seed": "tsx --env-file=.env scripts/seed.mts",
-    "db:seed:sample": "tsx --env-file=.env scripts/seed-sample.mts"
+    "db:seed:sample": "tsx --env-file=.env scripts/seed-sample.mts",
+    "db:seed:demo": "tsx --env-file=.env scripts/seed-demo.mts",
+    "db:clear:demo": "tsx --env-file=.env scripts/clear-demo.mts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.2.0",

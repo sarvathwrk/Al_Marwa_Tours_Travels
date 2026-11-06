@@ -28,3 +28,25 @@ export const ENQUIRY_STATUS_LABEL: Record<EnquiryStatus, string> = {
   contacted: 'Contacted',
   closed: 'Closed',
 };
+
+// ---------- customers (CRM) ----------
+
+export const CUSTOMER_STATUSES = ['applied', 'documents', 'confirmed', 'completed', 'cancelled'] as const;
+export type CustomerStatus = (typeof CUSTOMER_STATUSES)[number];
+export const CUSTOMER_STATUS_LABEL: Record<CustomerStatus, string> = {
+  applied: 'Applied',
+  documents: 'Documents',
+  confirmed: 'Confirmed',
+  completed: 'Completed',
+  cancelled: 'Cancelled',
+};
+
+export const VISA_STATUSES = ['not_started', 'applied', 'approved'] as const;
+export type VisaStatus = (typeof VISA_STATUSES)[number];
+export const VISA_STATUS_LABEL: Record<VisaStatus, string> = {
+  not_started: 'Not started',
+  applied: 'Applied',
+  approved: 'Approved',
+};
+
+export const GENDERS = ['', 'male', 'female'] as const;
