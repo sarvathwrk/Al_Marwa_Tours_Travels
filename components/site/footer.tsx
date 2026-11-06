@@ -4,7 +4,6 @@ import type { PublicSettings } from '@/lib/data';
 import { FOOTER, NAV, NEWSLETTER_UI, UI } from '@/lib/content';
 import { bi, tr, type Locale } from '@/lib/i18n';
 import { telLink, waLink } from '@/lib/images';
-import BrandLogo from './brand-logo';
 import { Facebook, Instagram, WhatsApp } from './icons';
 import NewsletterForm from './newsletter-form';
 
@@ -21,8 +20,16 @@ export default function Footer({ lang, settings }: { lang: Locale; settings: Pub
       <div className="mx-auto max-w-7xl px-5 pb-28 pt-16 sm:pb-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_0.8fr_1fr_1.2fr]">
           <div>
-            <Link href={`/${lang}`} className="inline-flex">
-              <BrandLogo lang={lang} className="h-12" />
+            {/* Full stacked logo (mark, name, Haj & Umrah, tagline) — the one place the complete lockup appears. */}
+            <Link href={`/${lang}`} className="inline-block">
+              {/* eslint-disable-next-line @next/next/no-img-element -- static SVG */}
+              <img
+                src={`/brand/logo-${lang}-white.svg`}
+                alt={tr(lang, 'Al Marwa Tours & Travels', 'அல் மர்வா டூர்ஸ் & டிராவல்ஸ்')}
+                width={lang === 'ta' ? 629.1 : 443.93}
+                height={lang === 'ta' ? 334.59 : 328.33}
+                className={`h-auto w-full ${lang === 'ta' ? 'max-w-[320px]' : 'max-w-[240px]'}`}
+              />
             </Link>
             <p className="mt-5 max-w-xs text-[15px] text-white/65">{bi(lang, FOOTER.blurb)}</p>
             <ul className="mt-5 flex flex-wrap gap-3">

@@ -1,6 +1,7 @@
 'use client';
 
-import { createContext, useActionState, useContext, useId, type ReactNode } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
+import { createContext, useActionState, useContext, useId, useState, type ReactNode } from 'react';
 import { useFormStatus } from 'react-dom';
 import { idleState, type FormState } from '@/lib/form';
 
@@ -78,6 +79,9 @@ export function Field({
   maxLength,
   autoComplete,
   inputMode,
+  icon,
+  revealable,
+  placeholder,
 }: FieldBase & {
   defaultValue?: string | number | null;
   type?: 'text' | 'password' | 'number' | 'tel' | 'email' | 'url';
@@ -85,23 +89,56 @@ export function Field({
   maxLength?: number;
   autoComplete?: string;
   inputMode?: 'numeric' | 'decimal' | 'tel' | 'text' | 'email' | 'url';
+  /** Leading icon inside the input (larger touch-friendly field). */
+  icon?: ReactNode;
+  /** Password fields: adds a show/hide toggle. */
+  revealable?: boolean;
+  placeholder?: string;
 }) {
   const value = useValue(name, defaultValue);
   const invalid = !!useContext(FormCtx).errors?.[name];
+  const [shown, setShown] = useState(false);
+  const input = (
+    <input
+      key={value}
+      name={name}
+      type={revealable && shown ? 'text' : type}
+      defaultValue={value}
+      required={required}
+      maxLength={maxLength}
+      autoComplete={autoComplete}
+      inputMode={inputMode}
+      placeholder={placeholder}
+      // The show/hide button sits inside the <label>, so name the input explicitly to keep its accessible name clean.
+      aria-label={revealable ? label : undefined}
+      aria-invalid={invalid}
+      className={icon || revealable ? `${control} py-3 ${icon ? 'pl-11' : ''} ${revealable ? 'pr-12' : ''}` : control}
+    />
+  );
+  if (!icon && !revealable) {
+    return (
+      <Wrapper name={name} label={label} hint={hint} className={className}>
+        {input}
+      </Wrapper>
+    );
+  }
   return (
     <Wrapper name={name} label={label} hint={hint} className={className}>
-      <input
-        key={value}
-        name={name}
-        type={type}
-        defaultValue={value}
-        required={required}
-        maxLength={maxLength}
-        autoComplete={autoComplete}
-        inputMode={inputMode}
-        aria-invalid={invalid}
-        className={control}
-      />
+      <span className="relative block">
+        {icon && <span className="pointer-events-none absolute inset-y-0 left-3.5 grid place-items-center text-muted">{icon}</span>}
+        {input}
+        {revealable && (
+          <button
+            type="button"
+            onClick={() => setShown((v) => !v)}
+            aria-label={shown ? 'Hide password' : 'Show password'}
+            aria-pressed={shown}
+            className="absolute inset-y-0 right-1 my-auto grid size-10 place-items-center rounded-full text-muted transition-colors hover:text-haram"
+          >
+            {shown ? <EyeOff aria-hidden className="size-[18px]" /> : <Eye aria-hidden className="size-[18px]" />}
+          </button>
+        )}
+      </span>
     </Wrapper>
   );
 }
@@ -170,7 +207,7 @@ export function SubmitButton({
   children: ReactNode;
   pendingLabel?: string;
   variant?: 'primary' | 'danger' | 'ghost';
-  size?: 'md' | 'sm';
+  size?: 'md' | 'sm' | 'lg';
   confirm?: string;
 }) {
   const { pending } = useFormStatus();
@@ -186,7 +223,7 @@ export function SubmitButton({
       onClick={(e) => {
         if (confirm && !window.confirm(confirm)) e.preventDefault();
       }}
-      className={`rounded-full font-semibold transition-colors disabled:opacity-60 ${size === 'sm' ? 'px-4 py-1.5 text-xs' : 'px-6 py-2.5 text-sm'} ${look}`}
+      className={`rounded-full font-semibold transition-colors disabled:opacity-60 ${{ sm: 'px-4 py-1.5 text-xs', md: 'px-6 py-2.5 text-sm', lg: 'w-full px-6 py-3.5 text-base shadow-lg shadow-haram/20' }[size]} ${look}`}
     >
       {pending ? pendingLabel : children}
     </button>

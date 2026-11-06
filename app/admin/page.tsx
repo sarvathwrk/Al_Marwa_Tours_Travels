@@ -59,9 +59,10 @@ export default async function AdminPage({ searchParams }: PageProps<'/admin'>) {
     <div className="min-h-svh">
       <header className="bg-kiswa text-white">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5 py-4">
-          <div>
-            <p className="font-display text-xl font-bold tracking-[0.16em]">AL MARWA</p>
-            <p className="text-xs text-gold">Website admin</p>
+          <div className="flex items-center gap-4">
+            {/* eslint-disable-next-line @next/next/no-img-element -- static SVG */}
+            <img src="/brand/header-logo-en-white.svg" alt="Al Marwa Tours & Travels" width={490.55} height={100} className="h-10 w-auto" />
+            <span className="hidden border-l border-white/20 pl-4 text-xs font-semibold uppercase tracking-[0.18em] text-gold sm:inline">Website admin</span>
           </div>
           <div className="flex items-center gap-4 text-sm">
             <Link href="/" target="_blank" className="inline-flex items-center gap-1.5 py-2 text-white/80 hover:text-gold">

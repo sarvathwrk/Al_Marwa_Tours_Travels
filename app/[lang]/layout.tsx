@@ -30,6 +30,13 @@ export async function generateMetadata({ params }: LayoutProps<'/[lang]'>): Prom
   if (!isLocale(lang)) return {};
   const title = tr(lang, COPY.title.en, COPY.title.ta);
   const description = tr(lang, COPY.description.en, COPY.description.ta);
+  // Link previews (WhatsApp, Facebook, X) show the full brand logo in the page's language.
+  const shareImage = {
+    url: `/brand/og-${lang}.png`,
+    width: 1200,
+    height: 630,
+    alt: tr(lang, 'Al Marwa Tours & Travels logo', 'அல் மர்வா டூர்ஸ் & டிராவல்ஸ் லோகோ'),
+  };
   return {
     metadataBase: new URL(SITE_URL),
     title: { default: title, template: `%s | ${tr(lang, 'Al Marwa Tours & Travels', 'அல் மர்வா டூர்ஸ் & டிராவல்ஸ்')}` },
@@ -42,7 +49,9 @@ export async function generateMetadata({ params }: LayoutProps<'/[lang]'>): Prom
       description,
       locale: lang === 'ta' ? 'ta_IN' : 'en_IN',
       alternateLocale: lang === 'ta' ? 'en_IN' : 'ta_IN',
+      images: [shareImage],
     },
+    twitter: { card: 'summary_large_image', title, description, images: [shareImage] },
   };
 }
 
