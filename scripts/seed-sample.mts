@@ -14,7 +14,7 @@ const isEmpty = async (table: PgTable) => {
 const [settings] = await db.select().from(schema.siteSettings).where(eq(schema.siteSettings.id, 1));
 if (settings) {
   const patch: Partial<typeof schema.siteSettings.$inferInsert> = {};
-  if (!settings.email) patch.email = 'info@example.com'; // example.com can never be someone's real inbox
+  if (!settings.email || settings.email === 'info@example.com') patch.email = 'almarwatours5@gmail.com';
   if (settings.latitude === null || settings.longitude === null) {
     patch.latitude = 13.0827; // Chennai city centre, placeholder office pin
     patch.longitude = 80.2707;
@@ -89,12 +89,12 @@ if (await isEmpty(schema.testimonials)) {
   console.log('added 3 placeholder reviews');
 }
 
-// ---------- founder: obvious placeholder name, no photo, bio reuses the original About text ----------
+// ---------- founder: no photo yet, bio reuses the original About text ----------
 if (await isEmpty(schema.founder)) {
   await db.insert(schema.founder).values({
     id: 1,
-    nameEn: 'Founder Name',
-    nameTa: 'நிறுவனர் பெயர்',
+    nameEn: 'Jahabar Sathik',
+    nameTa: 'ஜஹபர் சாதிக்',
     roleEn: 'Founder',
     roleTa: 'நிறுவனர்',
     bioEn:

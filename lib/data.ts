@@ -29,7 +29,7 @@ export type PublicSettings = Omit<SiteSettings, 'id' | 'updatedAt'>;
 export const DEFAULT_SETTINGS: PublicSettings = {
   phoneDisplay: '+91 99435 15474',
   whatsapp: '919943515474',
-  email: '',
+  email: 'almarwatours5@gmail.com',
   addressEn: 'Tamil Nadu, India',
   addressTa: 'தமிழ்நாடு, இந்தியா',
   hoursEn: 'Contact us for current working hours',

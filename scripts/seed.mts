@@ -8,6 +8,7 @@ await db
     id: 1,
     phoneDisplay: '+91 99435 15474',
     whatsapp: '919943515474',
+    email: 'almarwatours5@gmail.com',
     addressEn: 'Tamil Nadu, India',
     addressTa: 'தமிழ்நாடு, இந்தியா',
     hoursEn: 'Contact us for current working hours',
