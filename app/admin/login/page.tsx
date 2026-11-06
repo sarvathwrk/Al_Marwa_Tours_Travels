@@ -57,14 +57,14 @@ export default function LoginPage() {
 
       <section className="flex items-center justify-center px-5 py-10 sm:px-10 lg:py-12">
         <div className="w-full max-w-md text-center lg:text-left">
-          <span className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-1.5 text-xs font-semibold text-haram">
+          <span className="inline-flex items-center gap-2 rounded-full border border-edge bg-white px-3.5 py-1.5 text-xs font-semibold text-haram">
             <ShieldCheck aria-hidden className="size-4 text-gold-deep" />
             Admin access only
           </span>
           <h2 className="mt-5 font-display text-3xl font-bold text-haram sm:text-4xl">Welcome back</h2>
           <p className="mt-2 text-muted">Sign in to manage enquiries and website content.</p>
 
-          <div className="mt-8 rounded-3xl bg-white p-6 text-left shadow-xl shadow-haram/5 ring-1 ring-line sm:p-8">
+          <div className="mt-8 rounded-3xl bg-white p-6 text-left shadow-xl shadow-haram/5 ring-1 ring-edge sm:p-8">
             <LoginForm />
           </div>
 

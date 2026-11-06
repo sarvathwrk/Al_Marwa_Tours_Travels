@@ -11,7 +11,7 @@ export function TabSkeleton() {
       </div>
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {[0, 1, 2].map((i) => (
-          <div key={i} className="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-sm shadow-black/5">
+          <div key={i} className="flex items-center gap-4 rounded-2xl border border-edge bg-white p-4 shadow-sm shadow-black/10">
             <div className={`${bar} size-11 !rounded-xl`} />
             <div className="grid flex-1 gap-2">
               <div className={`${bar} h-3 w-24`} />
@@ -21,7 +21,7 @@ export function TabSkeleton() {
         ))}
       </div>
       {[0, 1].map((i) => (
-        <div key={i} className="grid gap-3 rounded-2xl bg-white p-5 shadow-sm shadow-black/5">
+        <div key={i} className="grid gap-3 rounded-2xl border border-edge bg-white p-5 shadow-sm shadow-black/10">
           <div className={`${bar} h-5 w-40`} />
           <div className={`${bar} h-4 w-full`} />
           <div className={`${bar} h-4 w-4/5`} />

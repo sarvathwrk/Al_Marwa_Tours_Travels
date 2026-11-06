@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function AdminRootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={fontVars}>
-      <body className="bg-mist">{children}</body>
+      <body className="bg-[#e6ede9]">{children}</body>
     </html>
   );
 }

@@ -113,7 +113,7 @@ export async function DashboardTab({ username }: { username: string }) {
           <Link href="/admin?tab=customers" className="inline-flex items-center gap-2 rounded-full bg-haram px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-haram-2">
             <Plus aria-hidden className="size-4" /> Add customer
           </Link>
-          <Link href="/admin?tab=enquiries&status=new" className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-5 py-2 text-sm font-semibold text-haram transition-colors hover:border-haram">
+          <Link href="/admin?tab=enquiries&status=new" className="inline-flex items-center gap-2 rounded-full border border-edge bg-white px-5 py-2 text-sm font-semibold text-haram transition-colors hover:border-haram">
             <Inbox aria-hidden className="size-4" /> New enquiries
           </Link>
         </div>

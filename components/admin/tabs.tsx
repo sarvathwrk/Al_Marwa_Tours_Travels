@@ -21,7 +21,7 @@ import {
   TestimonialForm,
 } from './forms';
 
-export const panel = 'rounded-2xl bg-white p-5 shadow-sm shadow-black/5 md:p-6';
+export const panel = 'rounded-2xl border border-edge bg-white p-5 shadow-sm shadow-black/10 md:p-6';
 export const badge = 'rounded-full px-2.5 py-0.5 text-xs font-semibold';
 export const when = new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Kolkata' });
 

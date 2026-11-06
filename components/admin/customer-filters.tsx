@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useRef, useTransition } from 'react';
 
-const control = 'rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-ink outline-none transition-colors focus:border-gold';
+const control = 'rounded-xl border border-edge bg-white px-3.5 py-2.5 text-sm text-ink outline-none transition-colors focus:border-gold';
 
 type Props = {
   q?: string;

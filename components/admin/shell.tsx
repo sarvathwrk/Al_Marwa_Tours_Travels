@@ -153,7 +153,7 @@ export default function AdminShell({ state, newCount, username, children }: { st
             aria-label="Open menu"
             aria-expanded={drawer}
             aria-controls="admin-sidebar"
-            className="grid size-10 place-items-center rounded-full border border-line text-haram lg:hidden"
+            className="grid size-10 place-items-center rounded-full border border-edge text-haram lg:hidden"
           >
             <Menu aria-hidden className="size-5" />
           </button>
@@ -179,7 +179,7 @@ export default function AdminShell({ state, newCount, username, children }: { st
               })}
             </ol>
           </nav>
-          <Link href="/" target="_blank" className="inline-flex items-center gap-1.5 rounded-full border border-line px-3.5 py-2 text-sm font-semibold text-haram transition-colors hover:border-haram">
+          <Link href="/" target="_blank" className="inline-flex items-center gap-1.5 rounded-full border border-edge px-3.5 py-2 text-sm font-semibold text-haram transition-colors hover:border-haram">
             <span className="hidden sm:inline">View website</span>
             <span className="sm:hidden">Site</span>
             <ExternalLink aria-hidden className="size-3.5" />

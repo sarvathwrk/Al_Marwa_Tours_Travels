@@ -151,7 +151,7 @@ function PaymentCell({ c }: { c: Customer }) {
 }
 
 function Contact({ c }: { c: CustomerWithGroup }) {
-  const link = 'inline-flex items-center gap-1.5 rounded-full border border-line px-3.5 py-1.5 text-sm font-semibold text-haram transition-colors hover:border-haram';
+  const link = 'inline-flex items-center gap-1.5 rounded-full border border-edge px-3.5 py-1.5 text-sm font-semibold text-haram transition-colors hover:border-haram';
   return (
     <div className="mb-5 flex flex-wrap items-center gap-2">
       <a href={`tel:${c.phone.replace(/[^\d+]/g, '')}`} className={link}>
@@ -257,7 +257,7 @@ export async function CustomersTab({ q, status, type, group, fromEnquiry }: Quer
                 <Link
                   href={href({ ...keep, status: s })}
                   aria-current={on ? 'true' : undefined}
-                  className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-sm font-semibold transition-colors ${on ? 'border-haram bg-haram text-white' : 'border-line bg-white text-haram hover:border-haram'}`}
+                  className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-sm font-semibold transition-colors ${on ? 'border-haram bg-haram text-white' : 'border-edge bg-white text-haram hover:border-haram'}`}
                 >
                   {label}
                   <span className={`rounded-full px-2 py-0.5 text-xs ${on ? 'bg-white/20' : 'bg-mist'}`}>{n}</span>

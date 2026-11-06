@@ -11,7 +11,7 @@ export default function AdminError({ error, retry, reset }: { error: unknown; re
   const again = retry ?? reset;
   return (
     <div role="alert" className="grid min-h-svh place-items-center px-5">
-      <div className="w-full max-w-md rounded-3xl bg-white p-8 text-center shadow-xl shadow-haram/5 ring-1 ring-line">
+      <div className="w-full max-w-md rounded-3xl bg-white p-8 text-center shadow-xl shadow-haram/5 ring-1 ring-edge">
         <span aria-hidden className="mx-auto grid size-14 place-items-center rounded-full bg-red-50 text-red-700">
           <TriangleAlert className="size-7" />
         </span>
@@ -23,7 +23,7 @@ export default function AdminError({ error, retry, reset }: { error: unknown; re
               Try again
             </button>
           )}
-          <a href="/admin" className="rounded-full border border-line px-6 py-2.5 text-sm font-semibold text-haram transition-colors hover:border-haram">
+          <a href="/admin" className="rounded-full border border-edge px-6 py-2.5 text-sm font-semibold text-haram transition-colors hover:border-haram">
             Back to dashboard
           </a>
         </div>

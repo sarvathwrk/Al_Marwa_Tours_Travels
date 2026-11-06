@@ -68,7 +68,7 @@ function FormStatus({ state }: { state: FormState }) {
 }
 
 const control =
-  'w-full rounded-md border border-line bg-white px-3.5 py-2.5 text-[15px] font-normal text-ink outline-none transition-colors focus:border-gold aria-[invalid=true]:border-red-500';
+  'w-full rounded-md border border-edge bg-white px-3.5 py-2.5 text-[15px] font-normal text-ink outline-none transition-colors focus:border-gold aria-[invalid=true]:border-red-500';
 
 type FieldBase = { name: string; label: string; hint?: string; className?: string };
 
@@ -262,7 +262,7 @@ export function SubmitButton({
   const look = {
     primary: 'bg-haram text-white hover:bg-haram-2',
     danger: 'border border-red-300 text-red-700 hover:bg-red-50',
-    ghost: 'border border-line bg-white text-haram hover:border-haram',
+    ghost: 'border border-edge bg-white text-haram hover:border-haram',
   }[variant];
   return (
     <button
