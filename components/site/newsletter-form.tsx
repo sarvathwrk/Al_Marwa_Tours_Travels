@@ -1,5 +1,6 @@
 'use client';
 
+import { LoaderCircle } from 'lucide-react';
 import { useActionState } from 'react';
 import { subscribe } from '@/app/[lang]/actions';
 import { NEWSLETTER_UI } from '@/lib/content';
@@ -37,8 +38,10 @@ export default function NewsletterForm() {
       <button
         type="submit"
         disabled={pending}
-        className="rounded-full bg-gold px-6 py-3 font-semibold text-kiswa transition-colors hover:bg-[#d9bd88] disabled:opacity-60"
+        aria-busy={pending}
+        className="inline-flex items-center justify-center gap-2.5 rounded-full bg-gold px-6 py-3 font-semibold text-kiswa transition-colors hover:bg-[#d9bd88] disabled:cursor-wait disabled:opacity-70"
       >
+        {pending && <LoaderCircle aria-hidden className="size-4 animate-spin" />}
         {pending ? bi(lang, NEWSLETTER_UI.sending) : bi(lang, NEWSLETTER_UI.submit)}
       </button>
       {error && (

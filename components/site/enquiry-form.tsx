@@ -7,7 +7,7 @@ import { ENQUIRY_INTEREST_LABEL, ENQUIRY_INTERESTS } from '@/lib/constants';
 import { idleState, type FormState } from '@/lib/form';
 import { bi } from '@/lib/i18n';
 import { waLink } from '@/lib/images';
-import { Check } from 'lucide-react';
+import { Check, LoaderCircle } from 'lucide-react';
 import { WhatsApp } from './icons';
 import { useLang } from './lang';
 
@@ -109,8 +109,10 @@ function EnquiryRound({ whatsapp, onAnother }: { whatsapp: string; onAnother: ()
       <button
         type="submit"
         disabled={pending}
-        className="inline-flex w-fit items-center justify-center rounded-full bg-haram px-8 py-3.5 font-semibold text-white transition-colors hover:bg-haram-2 disabled:opacity-60"
+        aria-busy={pending}
+        className="inline-flex w-fit items-center justify-center gap-2.5 rounded-full bg-haram px-8 py-3.5 font-semibold text-white transition-colors hover:bg-haram-2 disabled:cursor-wait disabled:opacity-70"
       >
+        {pending && <LoaderCircle aria-hidden className="size-5 animate-spin" />}
         {pending ? bi(lang, f.sending) : bi(lang, f.submit)}
       </button>
       <p className="-mt-1 text-xs text-muted">{bi(lang, f.note)}</p>

@@ -1,8 +1,9 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { deleteEnquiry, deleteFaq, deleteGalleryItem, deleteStat, deleteSubscriber, deleteTestimonial, setEnquiryStatus } from '@/app/admin/content-actions';
 import { ENQUIRY_INTEREST_LABEL, ENQUIRY_STATUS_LABEL, ENQUIRY_STATUSES, formatInr, PACKAGE_KIND_LABEL, type EnquiryStatus } from '@/lib/constants';
-import { getEnquiries, getFaqs, getFounder, getGallery, getOffers, getPackages, getSettings, getStats, getSubscribers, getTestimonials } from '@/lib/data';
+import { getEnquiries, getFaqs, getFounder, getGallery, getLinkedEnquiryIds, getOffers, getPackages, getSettings, getStats, getSubscribers, getTestimonials } from '@/lib/data';
 import { ActionForm, Hidden, SubmitButton } from './form';
 import {
   AccountForm,
@@ -20,16 +21,20 @@ import {
   TestimonialForm,
 } from './forms';
 
-export const panel = 'rounded-2xl bg-white p-6 shadow-sm shadow-black/5 md:p-8';
-const badge = 'rounded-full px-2.5 py-0.5 text-xs font-semibold';
-const when = new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Kolkata' });
+export const panel = 'rounded-2xl bg-white p-5 shadow-sm shadow-black/5 md:p-6';
+export const badge = 'rounded-full px-2.5 py-0.5 text-xs font-semibold';
+export const when = new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Kolkata' });
 
-function Heading({ title, intro }: { title: string; intro: string }) {
+/** Page title and one-line help, sitting directly on the page background (no extra card). */
+export function Heading({ title, intro, actions }: { title: string; intro: string; actions?: ReactNode }) {
   return (
-    <section className={panel}>
-      <h1 className="font-display text-3xl font-bold text-haram">{title}</h1>
-      <p className="mt-1 text-sm text-muted">{intro}</p>
-    </section>
+    <header className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
+      <div className="min-w-0">
+        <h1 className="font-display text-3xl font-bold leading-tight text-haram">{title}</h1>
+        <p className="mt-1 max-w-3xl text-sm text-muted">{intro}</p>
+      </div>
+      {actions}
+    </header>
   );
 }
 
@@ -44,21 +49,21 @@ function CrudList({ title, intro, rows, addLabel, addForm, emptyHint }: { title:
       {rows.map((r) => (
         <details key={r.id} className={panel}>
           <summary className="flex min-h-11 cursor-pointer list-none flex-wrap items-center gap-x-4 gap-y-2">{r.summary}</summary>
-          <div className="mt-6 border-t border-line pt-6">
+          <div className="mt-5 border-t border-line pt-5">
             {r.form}
             {r.remove}
           </div>
         </details>
       ))}
-      <details className={panel} open={rows.length === 0}>
-        <summary className="flex min-h-11 cursor-pointer items-center font-display text-xl font-bold text-haram">+ {addLabel}</summary>
-        <div className="mt-6 border-t border-line pt-6">{addForm}</div>
+      <details className={`${panel} !py-3`} open={rows.length === 0}>
+        <summary className="flex min-h-10 cursor-pointer items-center font-display text-xl font-bold text-haram">+ {addLabel}</summary>
+        <div className="mt-5 border-t border-line pt-5">{addForm}</div>
       </details>
     </>
   );
 }
 
-const Title = ({ children }: { children: ReactNode }) => <span className="font-display text-xl font-bold text-haram">{children}</span>;
+export const Title = ({ children }: { children: ReactNode }) => <span className="font-display text-xl font-bold text-haram">{children}</span>;
 const Hidden_ = ({ active }: { active: boolean }) => (active ? null : <span className={`${badge} bg-red-50 text-red-700`}>Hidden</span>);
 
 // ---------- content tabs ----------
@@ -255,12 +260,18 @@ const STATUS_STYLE: Record<EnquiryStatus, string> = {
   closed: 'bg-mist text-muted',
 };
 
-export async function EnquiriesTab() {
-  const enquiries = await getEnquiries();
+export async function EnquiriesTab({ status }: { status?: EnquiryStatus }) {
+  const [all, linked] = await Promise.all([getEnquiries(), getLinkedEnquiryIds()]);
+  const enquiries = status ? all.filter((e) => e.status === status) : all;
+  const title = status ? `${ENQUIRY_STATUS_LABEL[status]} enquiries` : 'Enquiries';
   return (
     <>
-      <Heading title="Enquiries" intro="Messages sent from the website contact form, newest first. Mark them as you follow up." />
-      {enquiries.length === 0 && <p className={`${panel} text-sm text-muted`}>No enquiries yet. They will appear here as soon as someone submits the form.</p>}
+      <Heading title={title} intro="Messages sent from the website contact form, newest first. Mark them as you follow up, or add the person to Customers once they apply." />
+      {enquiries.length === 0 && (
+        <p className={`${panel} text-sm text-muted`}>
+          {status ? `No ${ENQUIRY_STATUS_LABEL[status].toLowerCase()} enquiries.` : 'No enquiries yet. They will appear here as soon as someone submits the form.'}
+        </p>
+      )}
       {enquiries.map((e) => {
         const digits = e.phone.replace(/\D/g, '');
         return (
@@ -311,6 +322,16 @@ export async function EnquiriesTab() {
             {e.message && <p className="mt-4 whitespace-pre-line rounded-xl bg-mist p-4 text-[15px]">{e.message}</p>}
 
             <div className="mt-5 flex flex-wrap items-center gap-2">
+              {linked.has(e.id) ? (
+                <span className={`${badge} bg-sage text-haram`}>✓ In Customers</span>
+              ) : (
+                <Link
+                  href={`/admin?tab=customers&fromEnquiry=${e.id}`}
+                  className="inline-flex items-center rounded-full bg-haram px-4 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-haram-2"
+                >
+                  Add as customer
+                </Link>
+              )}
               {ENQUIRY_STATUSES.filter((s) => s !== e.status).map((s) => (
                 <ActionForm key={s} action={setEnquiryStatus}>
                   <Hidden name="id" value={e.id} />
