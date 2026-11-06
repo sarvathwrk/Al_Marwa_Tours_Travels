@@ -4,7 +4,8 @@ import type { PublicSettings } from '@/lib/data';
 import { FOOTER, NAV, NEWSLETTER_UI, UI } from '@/lib/content';
 import { bi, tr, type Locale } from '@/lib/i18n';
 import { telLink, waLink } from '@/lib/images';
-import { Facebook, Instagram, Star8, WhatsApp } from './icons';
+import BrandLogo from './brand-logo';
+import { Facebook, Instagram, WhatsApp } from './icons';
 import NewsletterForm from './newsletter-form';
 
 export default function Footer({ lang, settings }: { lang: Locale; settings: PublicSettings }) {
@@ -20,14 +21,8 @@ export default function Footer({ lang, settings }: { lang: Locale; settings: Pub
       <div className="mx-auto max-w-7xl px-5 pb-28 pt-16 sm:pb-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_0.8fr_1fr_1.2fr]">
           <div>
-            <Link href={`/${lang}`} className="flex items-center gap-3">
-              <span aria-hidden className="grid size-11 place-items-center rounded-full border border-gold/80 text-gold">
-                <Star8 className="size-6" />
-              </span>
-              <span className="leading-tight">
-                <span className="block font-display text-xl font-bold tracking-[0.18em]">AL MARWA</span>
-                <span className="tamil-untracked block whitespace-nowrap text-[11px] tracking-[0.22em] text-gold/90">{bi(lang, UI.brandSub)}</span>
-              </span>
+            <Link href={`/${lang}`} className="inline-flex">
+              <BrandLogo lang={lang} className="h-12" />
             </Link>
             <p className="mt-5 max-w-xs text-[15px] text-white/65">{bi(lang, FOOTER.blurb)}</p>
             <ul className="mt-5 flex flex-wrap gap-3">

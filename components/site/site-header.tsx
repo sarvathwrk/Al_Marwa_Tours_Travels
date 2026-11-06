@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { NAV, UI } from '@/lib/content';
 import { bi, LOCALE_COOKIE, otherLocale } from '@/lib/i18n';
 import { Menu, X } from 'lucide-react';
-import { Star8 } from './icons';
+import BrandLogo from './brand-logo';
 import { useLang } from './lang';
 
 /** Floating pill navigation. 12px gap + 60px bar = the 72px the map page reserves. */
@@ -46,14 +46,8 @@ export default function SiteHeader({ solid = false }: { solid?: boolean }) {
         }`}
       >
         <div className="flex h-[60px] items-center justify-between gap-2 pl-3 pr-2.5 min-[380px]:gap-4">
-          <Link href={`/${lang}`} className="flex min-w-0 items-center gap-2.5 text-white" onClick={() => setOpen(false)}>
-            <span aria-hidden className="grid size-10 shrink-0 place-items-center rounded-full border border-gold/80 text-gold">
-              <Star8 className="size-5" />
-            </span>
-            <span className="hidden whitespace-nowrap leading-tight min-[340px]:block">
-              <span className="block font-display text-base font-bold tracking-[0.12em] min-[380px]:text-lg min-[380px]:tracking-[0.18em]">AL MARWA</span>
-              <span className="tamil-untracked block text-[10px] tracking-[0.22em] text-gold/90">{bi(lang, UI.brandSub)}</span>
-            </span>
+          <Link href={`/${lang}`} className="flex min-w-0 shrink items-center" onClick={() => setOpen(false)}>
+            <BrandLogo lang={lang} className="h-9 sm:h-10" />
           </Link>
 
           <nav aria-label={bi(lang, UI.mainNav)} className={`hidden items-center gap-1 ${showNav}`}>
@@ -105,7 +99,7 @@ export default function SiteHeader({ solid = false }: { solid?: boolean }) {
       </div>
 
       {open && (
-        <nav id="mobile-nav" aria-label={bi(lang, UI.mobileNav)} className={`mx-auto mt-2 max-w-[1600px] rounded-3xl border border-gold/25 bg-kiswa p-5 ${hideMenu}`}>
+        <nav id="mobile-nav" aria-label={bi(lang, UI.mobileNav)} className={`mx-auto mt-2 max-h-[calc(100svh-6rem)] max-w-[1600px] overflow-y-auto overscroll-contain rounded-3xl border border-gold/25 bg-kiswa p-5 ${hideMenu}`}>
           <ul className="flex flex-col">
             {NAV.map((item) => (
               <li key={item.id} className="border-b border-white/10 last:border-0">

@@ -7,8 +7,9 @@ export default function LoginPage() {
       <div className="w-full max-w-sm">
         <div className="overflow-hidden rounded-2xl bg-white shadow-xl shadow-black/5">
           <div className="bg-kiswa px-7 py-6 text-white">
-            <p className="font-display text-2xl font-bold tracking-[0.16em]">AL MARWA</p>
-            <p className="mt-0.5 text-sm text-gold">Admin</p>
+            {/* eslint-disable-next-line @next/next/no-img-element -- static SVG */}
+            <img src="/brand/header-logo-en-white.svg" alt="Al Marwa Tours & Travels" width={490.55} height={100} className="h-11 w-auto" />
+            <p className="mt-2 text-sm text-gold">Admin</p>
           </div>
           <div className="hizam" aria-hidden />
           <div className="p-7">
