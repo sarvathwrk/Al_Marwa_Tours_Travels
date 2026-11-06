@@ -44,7 +44,7 @@ export function ColumnChart({ data, label, unit }: { data: { label: string; valu
                           {d.value}
                         </span>
                         <span
-                          className="absolute bottom-0 left-1/2 w-[58%] max-w-12 -translate-x-1/2 rounded-t-md bg-haram transition-[filter] group-hover:brightness-125"
+                          className="grow-y absolute bottom-0 inset-x-0 mx-auto w-[58%] max-w-12 rounded-t-md bg-haram transition-[filter] group-hover:brightness-125"
                           style={{ height: `${pct}%` }}
                         />
                       </>
@@ -106,8 +106,8 @@ export function MoneyBars({ rows, label }: { rows: { label: string; received: nu
                 </span>
               </div>
               <div className="mt-1.5 flex h-2.5 gap-0.5 overflow-hidden rounded-full" aria-hidden>
-                {r.received > 0 && <span style={{ flex: r.received / max, background: RECEIVED_COLOR }} />}
-                {pending > 0 && <span style={{ flex: pending / max, background: PENDING_COLOR }} />}
+                {r.received > 0 && <span className="grow-x" style={{ flex: r.received / max, background: RECEIVED_COLOR }} />}
+                {pending > 0 && <span className="grow-x" style={{ flex: pending / max, background: PENDING_COLOR }} />}
                 <span style={{ flex: Math.max(0, 1 - Math.max(r.total, r.received) / max) }} />
               </div>
             </li>

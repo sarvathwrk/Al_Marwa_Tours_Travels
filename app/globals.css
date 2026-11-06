@@ -71,6 +71,55 @@ body {
   transform: scale(1.22);
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-gold) 70%, transparent), 0 6px 18px rgb(0 0 0 / 0.35);
 }
+/* Gentle motion for the admin dashboard: cards rise in, bars grow from their baseline. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes grow-y {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.rise {
+  animation: rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+.grow-y {
+  transform-origin: bottom;
+  animation: grow-y 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+.grow-x {
+  transform-origin: left;
+  animation: grow-x 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .grow-y,
+  .grow-x {
+    animation: none;
+  }
+}
+
 /* Admin forms: fields look inactive while a save is in progress. */
 fieldset:disabled :is(input, select, textarea) {
   opacity: 0.6;

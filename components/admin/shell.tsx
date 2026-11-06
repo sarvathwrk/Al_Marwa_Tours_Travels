@@ -100,8 +100,8 @@ export default function AdminShell({ state, newCount, username, children }: { st
                     {groupBadge && newBadge}
                     <ChevronDown aria-hidden className={`size-4 shrink-0 transition-transform ${groupBadge ? '' : 'ml-auto'} ${open ? 'rotate-180' : ''}`} />
                   </button>
-                  {open && (
-                    <ul id={`menu-${item.icon}`} className="ml-[22px] mt-1 grid gap-0.5 border-l border-white/15 pl-3">
+                  <div className={`grid transition-[grid-template-rows,margin] duration-300 ease-out ${open ? 'mt-1 grid-rows-[1fr]' : 'grid-rows-[0fr]'}`} inert={!open}>
+                    <ul id={`menu-${item.icon}`} className="ml-[22px] grid min-h-0 gap-0.5 overflow-hidden border-l border-white/15 pl-3">
                       {item.children.map((c) => {
                         const on = isActive(c, state);
                         return (
@@ -120,7 +120,7 @@ export default function AdminShell({ state, newCount, username, children }: { st
                         );
                       })}
                     </ul>
-                  )}
+                  </div>
                 </li>
               );
             })}
