@@ -24,20 +24,21 @@ export default function LoginPage() {
           Back to website
         </Link>
 
-        <div className="my-auto pt-6 lg:pt-0">
+        {/* Centered on phones/tablets (logo is a centered lockup); left-aligned beside the form on desktop. */}
+        <div className="my-auto pt-6 text-center lg:pt-0 lg:text-left">
           {/* eslint-disable-next-line @next/next/no-img-element -- static SVG */}
           <img
             src="/brand/logo-en-white.svg"
             alt="Al Marwa Tours & Travels"
             width={443.93}
             height={328.33}
-            className="h-auto w-full max-w-[150px] sm:max-w-[240px] lg:max-w-[360px]"
+            className="mx-auto h-auto w-full max-w-[250px] sm:max-w-[300px] lg:mx-0 lg:max-w-[360px]"
           />
-          <h1 className="mt-5 font-display text-2xl font-bold leading-tight sm:mt-8 sm:text-4xl xl:text-5xl">Website admin</h1>
-          <p className="mt-3 hidden max-w-md text-white/70 sm:block">
+          <h1 className="mt-6 font-display text-3xl font-bold leading-tight sm:mt-8 sm:text-4xl xl:text-5xl">Website admin</h1>
+          <p className="mx-auto mt-3 hidden max-w-md text-white/70 sm:block lg:mx-0">
             Everything on the Al Marwa website is managed from here, in English and Tamil.
           </p>
-          <ul className="mt-8 hidden max-w-md gap-3 sm:grid sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+          <ul className="mx-auto mt-8 hidden max-w-md gap-3 text-left sm:grid sm:grid-cols-2 lg:mx-0 lg:grid-cols-1 xl:grid-cols-2">
             {MANAGES.map(({ icon: Icon, text }) => (
               <li key={text} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/85 backdrop-blur-sm">
                 <span className="grid size-9 shrink-0 place-items-center rounded-full bg-gold/15 text-gold">
@@ -55,7 +56,7 @@ export default function LoginPage() {
       <div className="hizam lg:hidden" aria-hidden />
 
       <section className="flex items-center justify-center px-5 py-10 sm:px-10 lg:py-12">
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-md text-center lg:text-left">
           <span className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-1.5 text-xs font-semibold text-haram">
             <ShieldCheck aria-hidden className="size-4 text-gold-deep" />
             Admin access only
@@ -63,7 +64,7 @@ export default function LoginPage() {
           <h2 className="mt-5 font-display text-3xl font-bold text-haram sm:text-4xl">Welcome back</h2>
           <p className="mt-2 text-muted">Sign in to manage enquiries and website content.</p>
 
-          <div className="mt-8 rounded-3xl bg-white p-6 shadow-xl shadow-haram/5 ring-1 ring-line sm:p-8">
+          <div className="mt-8 rounded-3xl bg-white p-6 text-left shadow-xl shadow-haram/5 ring-1 ring-line sm:p-8">
             <LoginForm />
           </div>
 
