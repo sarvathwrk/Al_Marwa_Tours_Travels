@@ -9,7 +9,7 @@ import { Menu, X } from 'lucide-react';
 import BrandLogo from './brand-logo';
 import { useLang } from './lang';
 
-/** Floating pill navigation. 12px gap + 60px bar = the 72px the map page reserves. */
+/** Floating pill (12px gap + 60px bar) that docks into a 72px bar on scroll; either way the 72px the map page reserves. */
 export default function SiteHeader({ solid = false }: { solid?: boolean }) {
   const { lang } = useLang();
   const pathname = usePathname();
@@ -37,15 +37,20 @@ export default function SiteHeader({ solid = false }: { solid?: boolean }) {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40 px-3 pt-3">
+    <header className={`fixed inset-x-0 top-0 z-40 transition-[padding] duration-300 ${filled ? 'p-0' : 'px-3 pt-3'}`}>
+      {/* Floating pill over the hero; once scrolled it docks as a full-width bar so page content never shows above it. */}
       <div
-        className={`mx-auto max-w-[1600px] rounded-full border transition-colors duration-300 ${
+        className={`mx-auto border transition-all duration-300 ${
           filled
-            ? 'border-gold/30 bg-kiswa/92 shadow-lg shadow-black/25 backdrop-blur-md'
-            : 'border-white/15 bg-kiswa/40 backdrop-blur-sm'
+            ? 'max-w-none rounded-none border-x-0 border-t-0 border-b-gold/30 bg-kiswa/95 shadow-lg shadow-black/25 backdrop-blur-md'
+            : 'max-w-[1600px] rounded-full border-white/15 bg-kiswa/40 backdrop-blur-sm'
         }`}
       >
-        <div className="flex h-[60px] items-center justify-between gap-2 pl-3 pr-2.5 min-[380px]:gap-4">
+        <div
+          className={`mx-auto flex max-w-[1600px] items-center justify-between gap-2 transition-[height,padding] duration-300 min-[380px]:gap-4 ${
+            filled ? 'h-[72px] px-3 sm:px-5' : 'h-[60px] pl-3 pr-2.5'
+          }`}
+        >
           <Link href={`/${lang}`} className="flex min-w-0 shrink items-center" onClick={() => setOpen(false)}>
             <BrandLogo lang={lang} className="h-9 sm:h-10" />
           </Link>
@@ -99,7 +104,7 @@ export default function SiteHeader({ solid = false }: { solid?: boolean }) {
       </div>
 
       {open && (
-        <nav id="mobile-nav" aria-label={bi(lang, UI.mobileNav)} className={`mx-auto mt-2 max-h-[calc(100svh-6rem)] max-w-[1600px] overflow-y-auto overscroll-contain rounded-3xl border border-gold/25 bg-kiswa p-5 ${hideMenu}`}>
+        <nav id="mobile-nav" aria-label={bi(lang, UI.mobileNav)} className={`mx-3 mt-2 max-h-[calc(100svh-6rem)] overflow-y-auto overscroll-contain rounded-3xl border border-gold/25 bg-kiswa p-5 ${hideMenu}`}>
           <ul className="flex flex-col">
             {NAV.map((item) => (
               <li key={item.id} className="border-b border-white/10 last:border-0">
