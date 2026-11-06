@@ -94,6 +94,10 @@ body {
   .grid > * {
     min-width: 0;
   }
+  /* Icons inside links/buttons keep their size when the label wraps (long Tamil labels squeezed them). */
+  :is(a, button, summary) > svg {
+    flex-shrink: 0;
+  }
 }
 
 /* Tamil glyphs are wider and taller than Latin, so section titles are sized down and only break a word as a last resort. */

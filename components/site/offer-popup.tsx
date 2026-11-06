@@ -50,15 +50,16 @@ export default function OfferPopup({ offers }: { offers: Offer[] }) {
 
   return (
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/65 p-4" onClick={close}>
+      {/* Capped to the viewport so the footer stays reachable on short (landscape / small) screens; the list scrolls. */}
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby="offers-title"
-        className="w-full max-w-lg overflow-hidden rounded-2xl bg-white shadow-2xl"
+        className="flex max-h-[calc(100svh-2rem)] w-full max-w-lg flex-col overflow-hidden rounded-2xl bg-white shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between bg-gradient-to-r from-haram to-haram-2 px-6 py-4 text-white">
-          <h2 id="offers-title" className="font-display text-2xl font-bold">
+        <div className="flex shrink-0 items-center justify-between gap-3 bg-gradient-to-r from-haram to-haram-2 px-5 py-3 text-white sm:px-6 sm:py-4">
+          <h2 id="offers-title" className="font-display text-xl font-bold sm:text-2xl">
             {bi(lang, OFFERS_UI.heading)}
           </h2>
           <button
@@ -66,14 +67,14 @@ export default function OfferPopup({ offers }: { offers: Offer[] }) {
             type="button"
             onClick={close}
             aria-label={bi(lang, OFFERS_UI.close)}
-            className="grid size-9 place-items-center rounded-full hover:bg-white/15"
+            className="grid size-10 shrink-0 place-items-center rounded-full hover:bg-white/15"
           >
             <X className="size-5" />
           </button>
         </div>
-        <div className="hizam" aria-hidden />
+        <div className="hizam shrink-0" aria-hidden />
 
-        <ul className="max-h-[50vh] divide-y divide-line overflow-y-auto px-6">
+        <ul className="min-h-0 flex-1 divide-y divide-line overflow-y-auto overscroll-contain px-5 sm:px-6">
           {offers.map((o) => (
             <li key={o.id} className="py-4">
               <h3 className="font-bold text-haram">{tr(lang, o.titleEn, o.titleTa)}</h3>
@@ -82,7 +83,7 @@ export default function OfferPopup({ offers }: { offers: Offer[] }) {
           ))}
         </ul>
 
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line px-6 py-4">
+        <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-t border-line px-5 py-3 sm:px-6 sm:py-4">
           <label className="flex items-center gap-2 text-sm text-muted">
             <input type="checkbox" checked={snooze} onChange={(e) => setSnooze(e.target.checked)} className="size-4 accent-[#0f3d33]" />
             {bi(lang, OFFERS_UI.snooze)}
